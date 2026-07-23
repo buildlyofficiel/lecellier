@@ -430,14 +430,7 @@ a {
 
 /* PARTNERS CAROUSEL */
 .partners-section {
-  background: linear-gradient(135deg, #2d5016 0%, #3a6b1f 100%);
   padding: 60px 0 !important;
-}
-
-.partners-section .eyebrow,
-.partners-section .head,
-.partners-section i {
-  color: #fff;
 }
 
 .partners-carousel {
@@ -469,17 +462,12 @@ a {
 .partner-logo {
   display: flex;
   align-items: center;
-  gap: 12px;
   padding: 16px 36px;
   white-space: nowrap;
-  font-weight: 600;
-  color: #fff;
-  font-size: 14px;
-}
-
-.logo-emoji {
-  font-size: 28px;
-  opacity: .9;
+  font-weight: 500;
+  color: var(--ink);
+  font-size: 15px;
+  border-right: 1px solid var(--line);
 }
 
 .logo-name {

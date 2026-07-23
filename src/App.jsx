@@ -33,14 +33,14 @@ const EVENTS = [
 ]
 
 const PARTNERS = [
-  { logo: '🍷', name: 'Château Margaux' },
-  { logo: '🥂', name: 'Veuve Clicquot' },
-  { logo: '🍇', name: 'Domaines Ott' },
-  { logo: '🍾', name: 'Laurent-Perrier' },
-  { logo: '🍷', name: 'Bordeaux Premium' },
-  { logo: '🥂', name: 'Champagne Pol Roger' },
-  { logo: '🍇', name: 'Bourgogne Select' },
-  { logo: '🍾', name: 'Alsace Riesling' },
+  { name: 'Château Margaux' },
+  { name: 'Veuve Clicquot' },
+  { name: 'Domaines Ott' },
+  { name: 'Laurent-Perrier' },
+  { name: 'Bordeaux Premium' },
+  { name: 'Champagne Pol Roger' },
+  { name: 'Bourgogne Select' },
+  { name: 'Alsace Riesling' },
 ]
 
 const GIFT_IDEAS = [
@@ -242,6 +242,25 @@ export default function App() {
         </div>
       </section>
 
+      {/* PARTNERS */}
+      <section className="section partners-section">
+        <div className="wrap">
+          <span className="eyebrow">Nos collaborateurs</span>
+          <h2 className="head">
+            Partenaires de <i>confiance</i>
+          </h2>
+          <div className="partners-carousel">
+            <div className="carousel-band">
+              {[...PARTNERS, ...PARTNERS].map((partner, i) => (
+                <div className="partner-logo" key={i}>
+                  <span className="logo-name">{partner.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* GIFT IDEAS */}
       <section className="section">
         <div className="wrap">
@@ -260,26 +279,6 @@ export default function App() {
                 <button className="gift-btn">Réserver</button>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* PARTNERS */}
-      <section className="section partners-section">
-        <div className="wrap">
-          <span className="eyebrow">Nos collaborateurs</span>
-          <h2 className="head">
-            Partenaires de <i>confiance</i>
-          </h2>
-          <div className="partners-carousel">
-            <div className="carousel-band">
-              {[...PARTNERS, ...PARTNERS].map((partner, i) => (
-                <div className="partner-logo" key={i}>
-                  <span className="logo-emoji">{partner.logo}</span>
-                  <span className="logo-name">{partner.name}</span>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
