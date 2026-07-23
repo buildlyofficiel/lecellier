@@ -33,10 +33,14 @@ const EVENTS = [
 ]
 
 const PARTNERS = [
-  { name: 'Fromagerie Dupont', desc: 'Sélection de fromages affinés artisanaux' },
-  { name: 'Boulangerie Le Four', desc: 'Pain et viennoiseries traditionnels' },
-  { name: 'Maison Gourmet', desc: 'Épicerie fine & délicatessen' },
-  { name: 'Caviste des Vignes', desc: 'Verres et accessoires de dégustation' },
+  { logo: '🍷', name: 'Château Margaux' },
+  { logo: '🥂', name: 'Veuve Clicquot' },
+  { logo: '🍇', name: 'Domaines Ott' },
+  { logo: '🍾', name: 'Laurent-Perrier' },
+  { logo: '🍷', name: 'Bordeaux Premium' },
+  { logo: '🥂', name: 'Champagne Pol Roger' },
+  { logo: '🍇', name: 'Bourgogne Select' },
+  { logo: '🍾', name: 'Alsace Riesling' },
 ]
 
 const GIFT_IDEAS = [
@@ -49,22 +53,18 @@ const GIFT_IDEAS = [
 const REVIEWS = [
   {
     name: 'Sophie M.',
-    rating: 5,
     text: 'Une vraie découverte ! Le caviste prend le temps d\'expliquer ses sélections. Excellent service.',
   },
   {
     name: 'Marc L.',
-    rating: 5,
     text: 'Endroit authentique avec une belle cave. Les ateliers de dégustation sont très instructifs.',
   },
   {
     name: 'Isabelle D.',
-    rating: 4,
     text: 'Très beau choix de vins français et découvertes intéressantes. À recommander !',
   },
   {
     name: 'Pierre B.',
-    rating: 5,
     text: 'Conseil personnalisé et ambiance conviviale. Un incontournable du Mans !',
   },
 ]
@@ -79,6 +79,39 @@ function ImgPlaceholder({ variant, filename }) {
 
 function scrollToId(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+}
+
+function ReviewCarousel() {
+  const [current, setCurrent] = useState(0)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % REVIEWS.length)
+    }, 6000)
+    return () => clearInterval(timer)
+  }, [])
+
+  return (
+    <div className="review-carousel">
+      <div className="carousel-track">
+        {REVIEWS.map((review, i) => (
+          <div key={i} className={`review-slide ${i === current ? 'active' : ''}`}>
+            <p className="review-quote">&ldquo;{review.text}&rdquo;</p>
+            <span className="review-author">{review.name}</span>
+          </div>
+        ))}
+      </div>
+      <div className="carousel-dots">
+        {REVIEWS.map((_, i) => (
+          <button
+            key={i}
+            className={`dot ${i === current ? 'active' : ''}`}
+            onClick={() => setCurrent(i)}
+          />
+        ))}
+      </div>
+    </div>
+  )
 }
 
 export default function App() {
@@ -232,49 +265,33 @@ export default function App() {
       </section>
 
       {/* PARTNERS */}
-      <section className="section">
+      <section className="section partners-section">
         <div className="wrap">
           <span className="eyebrow">Nos collaborateurs</span>
           <h2 className="head">
             Partenaires de <i>confiance</i>
           </h2>
-          <div className="partners-grid">
-            {PARTNERS.map((partner) => (
-              <div className="partner-card" key={partner.name}>
-                <div className="partner-logo">
-                  <ImgPlaceholder variant="light" filename={`${partner.name.replace(/\s+/g, '-').toLowerCase()}.png`} />
+          <div className="partners-carousel">
+            <div className="carousel-band">
+              {[...PARTNERS, ...PARTNERS].map((partner, i) => (
+                <div className="partner-logo" key={i}>
+                  <span className="logo-emoji">{partner.logo}</span>
+                  <span className="logo-name">{partner.name}</span>
                 </div>
-                <h3 className="partner-name">{partner.name}</h3>
-                <p className="partner-desc">{partner.desc}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* REVIEWS */}
-      <section className="section">
+      <section className="section reviews-section">
         <div className="wrap">
           <span className="eyebrow">Vos avis</span>
           <h2 className="head">
             Ce qu&apos;en disent nos <i>clients</i>
           </h2>
-          <div className="reviews-grid">
-            {REVIEWS.map((review) => (
-              <div className="review-card" key={review.name}>
-                <div className="review-stars">
-                  {Array.from({ length: review.rating }).map((_, i) => (
-                    <span key={i} className="star">★</span>
-                  ))}
-                </div>
-                <p className="review-text">&quot;{review.text}&quot;</p>
-                <div className="review-author">
-                  <span className="author-name">{review.name}</span>
-                  <span className="google-badge">Google</span>
-                </div>
-              </div>
-            ))}
-          </div>
+          <ReviewCarousel />
         </div>
       </section>
 

@@ -428,111 +428,141 @@ a {
   color: #fff;
 }
 
-/* PARTNERS */
-.partners-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 28px;
-  margin-top: 20px;
+/* PARTNERS CAROUSEL */
+.partners-section {
+  background: linear-gradient(135deg, #2d5016 0%, #3a6b1f 100%);
+  padding: 60px 0 !important;
 }
 
-.partner-card {
-  background: #fff;
-  border-radius: 14px;
-  padding: 28px;
-  border: 1px solid var(--line);
-  text-align: center;
-  transition: all .3s;
+.partners-section .eyebrow,
+.partners-section .head,
+.partners-section i {
+  color: #fff;
 }
 
-.partner-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(91, 26, 37, .1);
+.partners-carousel {
+  margin-top: 40px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel-band {
+  display: flex;
+  animation: scroll-infinite 25s linear infinite;
+  gap: 0;
+  width: fit-content;
+}
+
+.carousel-band:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-infinite {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .partner-logo {
-  height: 100px;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 18px;
-  background: var(--cream-2);
-}
-
-.partner-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 16px;
-  color: var(--ink);
-  margin-bottom: 10px;
-  font-weight: 500;
-}
-
-.partner-desc {
-  font-size: 13px;
-  color: var(--ink-soft);
-  line-height: 1.6;
-}
-
-/* REVIEWS */
-.reviews-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-  margin-top: 20px;
-}
-
-.review-card {
-  background: #fff;
-  border-radius: 14px;
-  padding: 24px;
-  border: 1px solid var(--line);
-  transition: all .3s;
-}
-
-.review-card:hover {
-  box-shadow: 0 8px 20px rgba(91, 26, 37, .08);
-}
-
-.review-stars {
   display: flex;
-  gap: 4px;
-  margin-bottom: 12px;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 36px;
+  white-space: nowrap;
+  font-weight: 600;
+  color: #fff;
+  font-size: 14px;
 }
 
-.star {
-  color: var(--gold);
-  font-size: 16px;
+.logo-emoji {
+  font-size: 28px;
+  opacity: .9;
 }
 
-.review-text {
-  font-size: 13.5px;
-  color: var(--ink-soft);
-  line-height: 1.7;
-  margin-bottom: 16px;
+.logo-name {
+  letter-spacing: .3px;
+}
+
+/* REVIEWS CAROUSEL */
+.reviews-section {
+  padding: 80px 0 !important;
+  background: var(--cream);
+}
+
+.review-carousel {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carousel-track {
+  width: 100%;
+  max-width: 900px;
+  height: 320px;
+  position: relative;
+}
+
+.review-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 40px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  transition: opacity .8s ease-in-out;
+}
+
+.review-slide.active {
+  opacity: 1;
+}
+
+.review-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  color: var(--wine);
+  line-height: 1.6;
+  margin-bottom: 32px;
+  font-weight: 400;
   font-style: italic;
 }
 
 .review-author {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 12px;
-  border-top: 1px solid var(--line);
-}
-
-.author-name {
-  font-weight: 600;
-  font-size: 13px;
-  color: var(--ink);
-}
-
-.google-badge {
-  background: var(--cream-2);
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 11px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--ink-soft);
-  letter-spacing: .3px;
+  letter-spacing: .5px;
+}
+
+.carousel-dots {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--line);
+  border: none;
+  cursor: pointer;
+  transition: all .3s;
+  padding: 0;
+}
+
+.dot.active {
+  background: var(--wine);
+  width: 28px;
+  border-radius: 5px;
 }
 
 /* PLANNING */
@@ -855,12 +885,27 @@ footer {
     grid-template-columns: 1fr;
   }
 
-  .partners-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
+  .review-quote {
+    font-size: 22px;
+    margin-bottom: 20px;
   }
 
-  .reviews-grid {
-    grid-template-columns: 1fr;
+  .carousel-track {
+    height: 240px;
+    padding: 0;
+  }
+
+  .review-slide {
+    padding: 20px 16px;
+  }
+
+  .partner-logo {
+    padding: 12px 20px;
+    gap: 8px;
+    font-size: 12px;
+  }
+
+  .logo-emoji {
+    font-size: 20px;
   }
 }
