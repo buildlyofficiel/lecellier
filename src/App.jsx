@@ -32,6 +32,43 @@ const EVENTS = [
   },
 ]
 
+const PARTNERS = [
+  { name: 'Fromagerie Dupont', desc: 'Sélection de fromages affinés artisanaux' },
+  { name: 'Boulangerie Le Four', desc: 'Pain et viennoiseries traditionnels' },
+  { name: 'Maison Gourmet', desc: 'Épicerie fine & délicatessen' },
+  { name: 'Caviste des Vignes', desc: 'Verres et accessoires de dégustation' },
+]
+
+const GIFT_IDEAS = [
+  { name: 'Coffret Découverte 3 Vins', price: '52 €', desc: 'Trois vins sélectionnés pour débuter' },
+  { name: 'Pairing Vin & Fromage', price: '68 €', desc: 'Vin + sélection de fromages partenaires' },
+  { name: 'Atelier Dégustation Privé', price: '120 € / pers', desc: 'Pour 2 à 4 personnes avec caviste' },
+  { name: 'Accessoires Premium', price: '35 €', desc: 'Verre à vin + carafe + bouchon' },
+]
+
+const REVIEWS = [
+  {
+    name: 'Sophie M.',
+    rating: 5,
+    text: 'Une vraie découverte ! Le caviste prend le temps d\'expliquer ses sélections. Excellent service.',
+  },
+  {
+    name: 'Marc L.',
+    rating: 5,
+    text: 'Endroit authentique avec une belle cave. Les ateliers de dégustation sont très instructifs.',
+  },
+  {
+    name: 'Isabelle D.',
+    rating: 4,
+    text: 'Très beau choix de vins français et découvertes intéressantes. À recommander !',
+  },
+  {
+    name: 'Pierre B.',
+    rating: 5,
+    text: 'Conseil personnalisé et ambiance conviviale. Un incontournable du Mans !',
+  },
+]
+
 function ImgPlaceholder({ variant, filename }) {
   return (
     <div className={`img-placeholder ${variant}`}>
@@ -165,6 +202,75 @@ export default function App() {
                 <div className="menu-meta">
                   <span className="name">{wine.name}</span>
                   <span className="tag price">{wine.price}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* GIFT IDEAS */}
+      <section className="section">
+        <div className="wrap">
+          <span className="eyebrow">Offrir du plaisir</span>
+          <h2 className="head">
+            Idées <i>cadeaux</i>
+          </h2>
+          <div className="gift-grid">
+            {GIFT_IDEAS.map((gift) => (
+              <div className="gift-card" key={gift.name}>
+                <div className="gift-header">
+                  <span className="gift-name">{gift.name}</span>
+                  <span className="gift-price">{gift.price}</span>
+                </div>
+                <p className="gift-desc">{gift.desc}</p>
+                <button className="gift-btn">Réserver</button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PARTNERS */}
+      <section className="section">
+        <div className="wrap">
+          <span className="eyebrow">Nos collaborateurs</span>
+          <h2 className="head">
+            Partenaires de <i>confiance</i>
+          </h2>
+          <div className="partners-grid">
+            {PARTNERS.map((partner) => (
+              <div className="partner-card" key={partner.name}>
+                <div className="partner-logo">
+                  <ImgPlaceholder variant="light" filename={`${partner.name.replace(/\s+/g, '-').toLowerCase()}.png`} />
+                </div>
+                <h3 className="partner-name">{partner.name}</h3>
+                <p className="partner-desc">{partner.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* REVIEWS */}
+      <section className="section">
+        <div className="wrap">
+          <span className="eyebrow">Vos avis</span>
+          <h2 className="head">
+            Ce qu&apos;en disent nos <i>clients</i>
+          </h2>
+          <div className="reviews-grid">
+            {REVIEWS.map((review) => (
+              <div className="review-card" key={review.name}>
+                <div className="review-stars">
+                  {Array.from({ length: review.rating }).map((_, i) => (
+                    <span key={i} className="star">★</span>
+                  ))}
+                </div>
+                <p className="review-text">&quot;{review.text}&quot;</p>
+                <div className="review-author">
+                  <span className="author-name">{review.name}</span>
+                  <span className="google-badge">Google</span>
                 </div>
               </div>
             ))}
