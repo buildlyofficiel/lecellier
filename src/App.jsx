@@ -32,6 +32,43 @@ const EVENTS = [
   },
 ]
 
+const PARTNERS = [
+  { name: 'Château Margaux' },
+  { name: 'Veuve Clicquot' },
+  { name: 'Domaines Ott' },
+  { name: 'Laurent-Perrier' },
+  { name: 'Bordeaux Premium' },
+  { name: 'Champagne Pol Roger' },
+  { name: 'Bourgogne Select' },
+  { name: 'Alsace Riesling' },
+]
+
+const GIFT_IDEAS = [
+  { name: 'Coffret Découverte 3 Vins', price: '52 €', desc: 'Trois vins sélectionnés pour débuter' },
+  { name: 'Pairing Vin & Fromage', price: '68 €', desc: 'Vin + sélection de fromages partenaires' },
+  { name: 'Atelier Dégustation Privé', price: '120 € / pers', desc: 'Pour 2 à 4 personnes avec caviste' },
+  { name: 'Accessoires Premium', price: '35 €', desc: 'Verre à vin + carafe + bouchon' },
+]
+
+const REVIEWS = [
+  {
+    name: 'Sophie M.',
+    text: 'Une vraie découverte ! Le caviste prend le temps d\'expliquer ses sélections. Excellent service.',
+  },
+  {
+    name: 'Marc L.',
+    text: 'Endroit authentique avec une belle cave. Les ateliers de dégustation sont très instructifs.',
+  },
+  {
+    name: 'Isabelle D.',
+    text: 'Très beau choix de vins français et découvertes intéressantes. À recommander !',
+  },
+  {
+    name: 'Pierre B.',
+    text: 'Conseil personnalisé et ambiance conviviale. Un incontournable du Mans !',
+  },
+]
+
 function ImgPlaceholder({ variant, filename }) {
   return (
     <div className={`img-placeholder ${variant}`}>
@@ -42,6 +79,39 @@ function ImgPlaceholder({ variant, filename }) {
 
 function scrollToId(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+}
+
+function ReviewCarousel() {
+  const [current, setCurrent] = useState(0)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % REVIEWS.length)
+    }, 6000)
+    return () => clearInterval(timer)
+  }, [])
+
+  return (
+    <div className="review-carousel">
+      <div className="carousel-track">
+        {REVIEWS.map((review, i) => (
+          <div key={i} className={`review-slide ${i === current ? 'active' : ''}`}>
+            <p className="review-quote">&ldquo;{review.text}&rdquo;</p>
+            <span className="review-author">{review.name}</span>
+          </div>
+        ))}
+      </div>
+      <div className="carousel-dots">
+        {REVIEWS.map((_, i) => (
+          <button
+            key={i}
+            className={`dot ${i === current ? 'active' : ''}`}
+            onClick={() => setCurrent(i)}
+          />
+        ))}
+      </div>
+    </div>
+  )
 }
 
 export default function App() {
@@ -169,6 +239,58 @@ export default function App() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* PARTNERS */}
+      <section className="section partners-section">
+        <div className="wrap">
+          <span className="eyebrow">Nos collaborateurs</span>
+          <h2 className="head">
+            Partenaires de <i>confiance</i>
+          </h2>
+          <div className="partners-carousel">
+            <div className="carousel-band">
+              {[...PARTNERS, ...PARTNERS].map((partner, i) => (
+                <div className="partner-logo" key={i}>
+                  <span className="logo-name">{partner.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* GIFT IDEAS */}
+      <section className="section">
+        <div className="wrap">
+          <span className="eyebrow">Offrir du plaisir</span>
+          <h2 className="head">
+            Idées <i>cadeaux</i>
+          </h2>
+          <div className="gift-grid">
+            {GIFT_IDEAS.map((gift) => (
+              <div className="gift-card" key={gift.name}>
+                <div className="gift-header">
+                  <span className="gift-name">{gift.name}</span>
+                  <span className="gift-price">{gift.price}</span>
+                </div>
+                <p className="gift-desc">{gift.desc}</p>
+                <button className="gift-btn">Réserver</button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* REVIEWS */}
+      <section className="section reviews-section">
+        <div className="wrap">
+          <span className="eyebrow">Vos avis</span>
+          <h2 className="head">
+            Ce qu&apos;en disent nos <i>clients</i>
+          </h2>
+          <ReviewCarousel />
         </div>
       </section>
 

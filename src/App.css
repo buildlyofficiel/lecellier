@@ -359,6 +359,200 @@ a {
   font-weight: 600;
 }
 
+/* GIFT IDEAS */
+.gift-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+  margin-top: 20px;
+}
+
+.gift-card {
+  background: var(--cream-2);
+  border-radius: 14px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  transition: all .3s;
+}
+
+.gift-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(91, 26, 37, .08);
+}
+
+.gift-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 12px;
+  gap: 8px;
+}
+
+.gift-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
+  flex: 1;
+}
+
+.gift-price {
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.gift-desc {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.gift-btn {
+  width: 100%;
+  border: 1px solid var(--gold);
+  padding: 11px;
+  border-radius: 999px;
+  font-size: 13px;
+  background: transparent;
+  color: var(--gold);
+  cursor: pointer;
+  transition: all .2s;
+  font-weight: 500;
+}
+
+.gift-btn:hover {
+  background: var(--gold);
+  color: #fff;
+}
+
+/* PARTNERS CAROUSEL */
+.partners-section {
+  padding: 60px 0 !important;
+}
+
+.partners-carousel {
+  margin-top: 40px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel-band {
+  display: flex;
+  animation: scroll-infinite 25s linear infinite;
+  gap: 0;
+  width: fit-content;
+}
+
+.carousel-band:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-infinite {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.partner-logo {
+  display: flex;
+  align-items: center;
+  padding: 16px 36px;
+  white-space: nowrap;
+  font-weight: 500;
+  color: var(--ink);
+  font-size: 15px;
+  border-right: 1px solid var(--line);
+}
+
+.logo-name {
+  letter-spacing: .3px;
+}
+
+/* REVIEWS CAROUSEL */
+.reviews-section {
+  padding: 80px 0 !important;
+  background: var(--cream);
+}
+
+.review-carousel {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carousel-track {
+  width: 100%;
+  max-width: 900px;
+  height: 320px;
+  position: relative;
+}
+
+.review-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 40px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  transition: opacity .8s ease-in-out;
+}
+
+.review-slide.active {
+  opacity: 1;
+}
+
+.review-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  color: var(--wine);
+  line-height: 1.6;
+  margin-bottom: 32px;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.review-author {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: .5px;
+}
+
+.carousel-dots {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--line);
+  border: none;
+  cursor: pointer;
+  transition: all .3s;
+  padding: 0;
+}
+
+.dot.active {
+  background: var(--wine);
+  width: 28px;
+  border-radius: 5px;
+}
+
 /* PLANNING */
 .planning-section {
   background: var(--wine-dark);
@@ -673,5 +867,33 @@ footer {
     flex-direction: column;
     width: 100%;
     max-width: 260px;
+  }
+
+  .gift-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .review-quote {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .carousel-track {
+    height: 240px;
+    padding: 0;
+  }
+
+  .review-slide {
+    padding: 20px 16px;
+  }
+
+  .partner-logo {
+    padding: 12px 20px;
+    gap: 8px;
+    font-size: 12px;
+  }
+
+  .logo-emoji {
+    font-size: 20px;
   }
 }
