@@ -69,14 +69,6 @@ const REVIEWS = [
   },
 ]
 
-function ImgPlaceholder({ variant, filename }) {
-  return (
-    <div className={`img-placeholder ${variant}`}>
-      <span className="fname">{filename}</span>
-    </div>
-  )
-}
-
 function scrollToId(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 }
@@ -209,9 +201,6 @@ export default function App() {
             </p>
           </div>
         </div>
-        <div className="interior-photo">
-          <img src="/red-wine.png" alt="Collection of premium red wines" />
-        </div>
       </section>
 
       {/* SELECTION */}
@@ -233,7 +222,7 @@ export default function App() {
             {WINES.map((wine) => (
               <div className="menu-card" key={wine.file}>
                 <div className="photo">
-                  <ImgPlaceholder variant="light" filename={wine.file} />
+                  <img src={`/${wine.file.replace('.jpg', '.png')}`} alt={wine.name} />
                 </div>
                 <div className="menu-meta">
                   <span className="name">{wine.name}</span>
@@ -286,13 +275,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* WHITE WINE SELECTION */}
-      <section className="section" style={{ paddingBottom: 0 }}>
-        <div className="interior-photo">
-          <img src="/white-wine.png" alt="Premium white wine collection" />
-        </div>
-      </section>
-
       {/* REVIEWS */}
       <section className="section reviews-section">
         <div className="wrap">
@@ -301,13 +283,6 @@ export default function App() {
             Ce qu&apos;en disent nos <i>clients</i>
           </h2>
           <ReviewCarousel />
-        </div>
-      </section>
-
-      {/* EVENTS & TASTING IMAGE */}
-      <section className="section" style={{ paddingBottom: 0 }}>
-        <div className="interior-photo">
-          <img src="/wine-glasses.png" alt="Wine tasting glasses with selection" />
         </div>
       </section>
 
