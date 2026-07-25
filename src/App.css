@@ -897,3 +897,200 @@ footer {
     font-size: 20px;
   }
 }
+
+@media(max-width:480px) {
+  body {
+    font-size: 14px;
+  }
+
+  .hero {
+    margin: 6px;
+    min-height: 480px;
+    height: 70vh;
+  }
+
+  .hero-title {
+    font-size: clamp(36px, 9vw, 64px);
+  }
+
+  .hero-sub {
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  .nav {
+    padding: 16px 14px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .nav-right {
+    gap: 8px;
+  }
+
+  .geo-text {
+    display: none;
+  }
+
+  .pill-btn {
+    padding: 9px 16px;
+    font-size: 12px;
+  }
+
+  .section {
+    padding: 60px 0;
+  }
+
+  .head {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    margin-bottom: 10px;
+  }
+
+  .wrap {
+    padding: 0 16px;
+  }
+
+  .interior-photo {
+    margin: 0 16px;
+    height: 240px;
+    border-radius: 10px;
+  }
+
+  .about-grid p {
+    font-size: 13.5px;
+    line-height: 1.6;
+  }
+
+  .menu-card {
+    flex: 0 0 180px;
+  }
+
+  .menu-card .photo {
+    height: 240px;
+  }
+
+  .menu-meta {
+    font-size: 12px;
+  }
+
+  .menu-meta .name {
+    font-size: 13px;
+  }
+
+  .gift-card {
+    padding: 18px;
+    border-radius: 10px;
+  }
+
+  .gift-btn {
+    padding: 9px;
+    font-size: 12px;
+  }
+
+  .planning-section {
+    margin: 0 16px;
+    padding: 36px 16px;
+    border-radius: 12px;
+  }
+
+  .schedule-table td {
+    padding: 10px 0;
+    font-size: 12px;
+  }
+
+  .event-title {
+    font-size: 12px;
+  }
+
+  .event-desc {
+    font-size: 11.5px;
+  }
+
+  .contact-inner {
+    border-radius: 12px;
+  }
+
+  .map-wrap {
+    min-height: 240px;
+  }
+
+  .contact-copy {
+    padding: 28px 18px;
+  }
+
+  .contact-copy h2 {
+    font-size: 24px;
+    margin-bottom: 18px;
+  }
+
+  .info-row {
+    gap: 10px;
+    padding: 10px 0;
+    font-size: 12px;
+  }
+
+  .info-row .label {
+    width: 80px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    padding: 10px 12px;
+    font-size: 12px;
+    border-radius: 8px;
+  }
+
+  .send-btn {
+    padding: 10px 18px;
+    font-size: 12px;
+  }
+
+  .review-quote {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .review-author {
+    font-size: 13px;
+  }
+
+  footer {
+    padding: 40px 0 24px;
+  }
+
+  .footer-grid {
+    gap: 24px;
+  }
+
+  .footer-col a {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .footer-bottom {
+    font-size: 11px;
+  }
+
+  .socials a {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .arrow-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .icon-btn {
+    width: 36px;
+    height: 36px;
+  }
+}

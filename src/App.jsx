@@ -143,6 +143,10 @@ export default function App() {
     e.target.reset()
   }
 
+  function handleReserveGift(giftName) {
+    alert(`Vous avez cliqué sur "${giftName}". Veuillez nous contacter pour réserver.`)
+  }
+
   return (
     <>
       {/* HERO */}
@@ -268,7 +272,9 @@ export default function App() {
                   <span className="gift-price">{gift.price}</span>
                 </div>
                 <p className="gift-desc">{gift.desc}</p>
-                <button className="gift-btn">Réserver</button>
+                <button className="gift-btn" onClick={() => handleReserveGift(gift.name)}>
+                  Réserver
+                </button>
               </div>
             ))}
           </div>
