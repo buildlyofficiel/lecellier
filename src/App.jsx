@@ -155,7 +155,7 @@ export default function App() {
     <>
       {/* HERO */}
       <section className="hero" id="top">
-        <ImgPlaceholder variant="dark" filename="hero-cellier.jpg" />
+        <img src="/wine-shop-interior.png" alt="Le Cellier Wine Shop Interior" />
         <nav className="nav">
           <div className="logo">Le Cellier</div>
           <div className="nav-right">
@@ -208,6 +208,9 @@ export default function App() {
               d'un cadeau à offrir.
             </p>
           </div>
+        </div>
+        <div className="interior-photo">
+          <img src="/wine-display.png" alt="Selection of premium wines at Le Cellier" />
         </div>
       </section>
 
@@ -283,6 +286,13 @@ export default function App() {
         </div>
       </section>
 
+      {/* VINEYARD IMAGE */}
+      <section className="section" style={{ paddingBottom: 0 }}>
+        <div className="interior-photo">
+          <img src="/vineyard.png" alt="Beautiful French vineyard landscape" />
+        </div>
+      </section>
+
       {/* REVIEWS */}
       <section className="section reviews-section">
         <div className="wrap">
@@ -291,6 +301,13 @@ export default function App() {
             Ce qu&apos;en disent nos <i>clients</i>
           </h2>
           <ReviewCarousel />
+        </div>
+      </section>
+
+      {/* EVENTS & TASTING IMAGE */}
+      <section className="section" style={{ paddingBottom: 0 }}>
+        <div className="interior-photo">
+          <img src="/wine-tasting.png" alt="Wine tasting event at Le Cellier" />
         </div>
       </section>
 
@@ -338,10 +355,12 @@ export default function App() {
           <div className="contact-inner">
             <div className="map-wrap">
               <iframe
-                src="https://www.google.com/maps?q=72000%20Le%20Mans%2C%20France&output=embed"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2718.8941265812936!2d0.18847!3d48.00629!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e1c5c5c5c5c5c5%3A0x1c5c5c5c5c5c5c5c!2s44%20Avenue%20Fran%C3%A7ois%20Mitterrand%2C%2072000%20Le%20Mans!5e0!3m2!1sfr!2sfr!4v1640000000000"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Localisation Le Cellier"
+                title="Localisation Le Cellier Le Mans"
+                allowFullScreen=""
+                aria-hidden="false"
               />
             </div>
             <div className="contact-copy">
@@ -352,15 +371,19 @@ export default function App() {
 
               <div className="info-row">
                 <span className="label">Adresse</span>
-                <span className="val">14 rue des Vignerons, 72000 Le Mans</span>
+                <span className="val">44 Avenue François Mitterrand, 72000 Le Mans</span>
               </div>
               <div className="info-row">
                 <span className="label">Téléphone</span>
-                <span className="val">+33 2 43 12 34 56</span>
+                <span className="val">+33 9 88 52 80 34</span>
               </div>
               <div className="info-row">
                 <span className="label">Email</span>
                 <span className="val">contact@lecellier.fr</span>
+              </div>
+              <div className="info-row">
+                <span className="label">Horaires</span>
+                <span className="val">Mar-Ven: 10h-19h30 | Sam: 9h30-20h | Dim: 10h-13h</span>
               </div>
 
               <form className="contact-form" onSubmit={handleContactSubmit}>
@@ -388,9 +411,9 @@ export default function App() {
               <a href="#contact">Nous trouver</a>
             </div>
             <div className="footer-col">
-              <a href="#">14 rue des Vignerons, 72000 Le Mans</a>
-              <a href="#">+33 2 43 12 34 56</a>
-              <a href="#">contact@lecellier.fr</a>
+              <a href="#">44 Avenue François Mitterrand, 72000 Le Mans</a>
+              <a href="tel:+33988528034">+33 9 88 52 80 34</a>
+              <a href="mailto:contact@lecellier.fr">contact@lecellier.fr</a>
             </div>
           </div>
           <div className="footer-bottom">
