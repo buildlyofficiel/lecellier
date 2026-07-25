@@ -109,6 +109,7 @@ function ReviewCarousel() {
 export default function App() {
   const menuTrackRef = useRef(null)
   const [geoText, setGeoText] = useState('')
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     if (!('geolocation' in navigator)) return
@@ -147,6 +148,14 @@ export default function App() {
     alert(`Vous avez cliqué sur "${giftName}". Veuillez nous contacter pour réserver.`)
   }
 
+  function handleMenuClick() {
+    setMenuOpen(!menuOpen)
+  }
+
+  function closeMenu() {
+    setMenuOpen(false)
+  }
+
   return (
     <>
       {/* HERO */}
@@ -164,7 +173,17 @@ export default function App() {
             <button className="pill-btn solid" onClick={() => scrollToId('contact')}>
               Nous contacter
             </button>
-            <div className="icon-btn" title="Menu">☰</div>
+            <button className="icon-btn" title="Menu" onClick={handleMenuClick}>☰</button>
+            {menuOpen && (
+              <div className="mobile-menu">
+                <button onClick={() => { scrollToId('top'); closeMenu(); }}>Accueil</button>
+                <button onClick={() => { scrollToId('about'); closeMenu(); }}>À propos</button>
+                <button onClick={() => { scrollToId('selection'); closeMenu(); }}>Sélection</button>
+                <button onClick={() => { scrollToId('gifts'); closeMenu(); }}>Cadeaux</button>
+                <button onClick={() => { scrollToId('planning'); closeMenu(); }}>Planning</button>
+                <button onClick={() => { scrollToId('contact'); closeMenu(); }}>Contact</button>
+              </div>
+            )}
           </div>
         </nav>
         <div className="hero-content">
@@ -186,7 +205,7 @@ export default function App() {
       </section>
 
       {/* ABOUT */}
-      <section className="section">
+      <section className="section" id="about">
         <div className="wrap">
           <span className="eyebrow">Notre maison</span>
           <h2 className="head">
@@ -208,7 +227,7 @@ export default function App() {
       </section>
 
       {/* SELECTION */}
-      <section className="section" style={{ paddingTop: 0 }}>
+      <section className="section" id="selection" style={{ paddingTop: 0 }}>
         <div className="wrap">
           <div className="menu-header">
             <div>
@@ -258,7 +277,7 @@ export default function App() {
       </section>
 
       {/* GIFT IDEAS */}
-      <section className="section">
+      <section className="section" id="gifts">
         <div className="wrap">
           <span className="eyebrow">Offrir du plaisir</span>
           <h2 className="head">
