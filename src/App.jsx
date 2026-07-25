@@ -155,7 +155,7 @@ export default function App() {
     <>
       {/* HERO */}
       <section className="hero" id="top">
-        <img src="/wine-shop-interior.png" alt="Le Cellier Wine Shop Interior" />
+        <img src="/wine-cellar.png" alt="Le Cellier Wine Cellar" />
         <nav className="nav">
           <div className="logo">Le Cellier</div>
           <div className="nav-right">
@@ -210,7 +210,7 @@ export default function App() {
           </div>
         </div>
         <div className="interior-photo">
-          <img src="/wine-display.png" alt="Selection of premium wines at Le Cellier" />
+          <img src="/red-wine.png" alt="Collection of premium red wines" />
         </div>
       </section>
 
@@ -286,10 +286,10 @@ export default function App() {
         </div>
       </section>
 
-      {/* VINEYARD IMAGE */}
+      {/* WHITE WINE SELECTION */}
       <section className="section" style={{ paddingBottom: 0 }}>
         <div className="interior-photo">
-          <img src="/vineyard.png" alt="Beautiful French vineyard landscape" />
+          <img src="/white-wine.png" alt="Premium white wine collection" />
         </div>
       </section>
 
@@ -307,7 +307,7 @@ export default function App() {
       {/* EVENTS & TASTING IMAGE */}
       <section className="section" style={{ paddingBottom: 0 }}>
         <div className="interior-photo">
-          <img src="/wine-tasting.png" alt="Wine tasting event at Le Cellier" />
+          <img src="/wine-glasses.png" alt="Wine tasting glasses with selection" />
         </div>
       </section>
 
