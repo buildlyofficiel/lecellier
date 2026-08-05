@@ -4,8 +4,8 @@
   --ink: #221a16;
   --ink-soft: #5a4d43;
   --line: #ddd0ba;
-  --wine: #5b1a25;
-  --wine-dark: #3d1019;
+  --wine: rgba(20, 82, 97);
+  --wine-dark: rgba(12, 53, 63);
   --gold: #b8902f;
 }
 
@@ -55,7 +55,7 @@ img {
 .img-placeholder.dark {
   background:
     repeating-linear-gradient(135deg, rgba(255, 255, 255, .03) 0px, rgba(255, 255, 255, .03) 2px, transparent 2px, transparent 14px),
-    linear-gradient(135deg, #4a1520, #241012);
+    linear-gradient(135deg, rgba(16, 68, 81), rgba(8, 33, 39));
   color: #e9d9c0;
 }
 
@@ -119,13 +119,79 @@ a {
 .logo {
   font-family: 'Playfair Display', serif;
   font-style: italic;
-  font-size: 22px;
+  font-size: 23px;
   color: #fff;
-  letter-spacing: .3px;
+  letter-spacing: .5px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.logo span.brand-le {
+  color: var(--gold);
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+.logo span.brand-dot {
+  color: var(--gold);
+  font-weight: bold;
 }
 
 .logo.dark {
   color: var(--ink);
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.nav-links button {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .4px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.25s ease;
+  font-family: 'Inter', sans-serif;
+  padding: 6px 0;
+  position: relative;
+}
+
+.nav-links button:hover {
+  color: #fff;
+}
+
+.nav-links button::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 1.5px;
+  background: rgba(20, 82, 97);
+  transition: all 0.25s ease;
+  transform: translateX(-50%);
+}
+
+.nav-links button:hover::after {
+  width: 100%;
+}
+
+@media (min-width: 821px) {
+  .nav-right .icon-btn {
+    display: none !important;
+  }
+}
+
+@media (max-width: 820px) {
+  .nav-links {
+    display: none !important;
+  }
 }
 
 .nav-right {
@@ -139,8 +205,16 @@ a {
   color: rgba(255, 255, 255, .85);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   letter-spacing: .2px;
+}
+
+.geo-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 8px var(--gold);
 }
 
 .icon-btn {
@@ -199,7 +273,7 @@ a {
 }
 
 .pill-btn {
-  border: 1px solid rgba(255, 255, 255, .7);
+  border: 1.5px solid rgba(20, 82, 97);
   color: #fff;
   padding: 11px 22px;
   border-radius: 999px;
@@ -213,16 +287,34 @@ a {
 .pill-btn:hover {
   background: #fff;
   color: var(--ink);
+  border-color: #fff;
 }
 
 .pill-btn.solid {
   background: #ffffff;
   color: #1c1614;
   font-weight: 500;
+  border: 1.5px solid #ffffff;
 }
 
 .pill-btn.solid:hover {
   background: #fdfdfd;
+}
+
+.pill-btn.branded {
+  background: rgba(20, 82, 97, 0.15);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: #fff !important;
+  border: 1.5px solid rgba(184, 144, 47, 0.35);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all .2s;
+}
+
+.pill-btn.branded:hover {
+  background: #fff;
+  color: var(--ink) !important;
+  border-color: #fff;
 }
 
 .pill-btn.dark {
@@ -399,7 +491,7 @@ a {
 /* GIFT IDEAS */
 .gift-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 28px;
   margin-top: 20px;
 }
@@ -414,7 +506,7 @@ a {
 
 .gift-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(91, 26, 37, .08);
+  box-shadow: 0 8px 24px rgba(20, 82, 97, .08);
 }
 
 .gift-header {
@@ -518,43 +610,83 @@ a {
 }
 
 .review-carousel {
-  margin-top: 50px;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+}
+
+.carousel-container-outer {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.carousel-arrow {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--cream-2);
+  border: 1px solid var(--line);
+  color: var(--wine);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all .2s;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.carousel-arrow:hover {
+  background: var(--wine);
+  color: #fff;
+  border-color: var(--wine);
 }
 
 .carousel-track {
   width: 100%;
-  max-width: 900px;
-  height: 320px;
+  max-width: 800px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 220px;
 }
 
 .review-slide {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
-  padding: 40px 40px;
+  padding: 20px 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   opacity: 0;
-  transition: opacity .8s ease-in-out;
+  pointer-events: none;
+  transition: opacity .5s ease-in-out;
 }
 
 .review-slide.active {
+  position: relative;
   opacity: 1;
+  pointer-events: auto;
 }
 
 .review-quote {
   font-family: 'Playfair Display', serif;
-  font-size: 32px;
+  font-size: 28px;
   color: var(--wine);
   line-height: 1.6;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   font-weight: 400;
   font-style: italic;
 }
@@ -568,9 +700,12 @@ a {
 
 .carousel-dots {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+  max-width: 100%;
+  padding: 0 20px;
 }
 
 .dot {
@@ -879,6 +1014,9 @@ footer {
 
   .hero {
     margin: 10px;
+    min-height: auto;
+    height: calc(100vh - 20px);
+    height: calc(100dvh - 20px);
   }
 
   .nav {
@@ -941,9 +1079,10 @@ footer {
   }
 
   .hero {
-    margin: 6px;
-    min-height: 480px;
-    height: 70vh;
+    margin: 10px;
+    min-height: auto;
+    height: calc(100vh - 20px);
+    height: calc(100dvh - 20px);
   }
 
   .hero-title {
@@ -1089,13 +1228,48 @@ footer {
     font-size: 12px;
   }
 
+  .carousel-container-outer {
+    gap: 12px;
+  }
+
+  .carousel-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
+
+  .carousel-track {
+    min-height: 160px;
+  }
+
+  .review-slide {
+    padding: 10px 0;
+  }
+
   .review-quote {
-    font-size: 18px;
-    margin-bottom: 16px;
+    font-size: 15px;
+    margin-bottom: 12px;
+    line-height: 1.5;
   }
 
   .review-author {
-    font-size: 13px;
+    font-size: 12px;
+  }
+
+  .carousel-dots {
+    margin-top: 20px;
+    gap: 6px;
+    padding: 0 10px;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .dot.active {
+    width: 14px;
+    border-radius: 3px;
   }
 
   footer {
@@ -1131,3 +1305,280 @@ footer {
     height: 36px;
   }
 }
+
+/* GDPR BANNER STYLES */
+.gdpr-banner {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  max-width: 420px;
+  background: rgba(34, 26, 22, 0.04); /* Totally transparent neutral-warm tint to avoid white paint */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--line);
+  border-radius: 12px; /* Matches high-end card aesthetics */
+  box-shadow: 0 15px 45px rgba(34, 26, 22, 0.08);
+  padding: 28px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  animation: gdprSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes gdprSlideIn {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.gdpr-header {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 18px;
+}
+
+.gdpr-eyebrow {
+  font-family: 'Sora', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.gdpr-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+.gdpr-title i {
+  font-style: italic;
+  color: var(--wine);
+  font-weight: 500;
+}
+
+.gdpr-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+
+.gdpr-custom-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background-color: var(--cream-2); /* Perfectly integrated warm card cream */
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  margin-top: 4px;
+}
+
+.gdpr-option {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 6px 0;
+}
+
+.gdpr-option:not(:last-child) {
+  border-bottom: 1px dashed rgba(184, 144, 47, 0.3);
+  padding-bottom: 14px;
+}
+
+.gdpr-option-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.gdpr-option-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.1px;
+}
+
+.gdpr-option-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+/* Elegant custom switch */
+.gdpr-switch {
+  position: relative;
+  display: inline-block;
+  width: 38px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.gdpr-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.gdpr-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  border: 1.5px solid var(--line);
+  transition: all .25s ease;
+  border-radius: 999px;
+}
+
+.gdpr-slider:before {
+  position: absolute;
+  content: "";
+  height: 11px;
+  width: 11px;
+  left: 3px;
+  bottom: 3px;
+  background-color: var(--ink-soft);
+  transition: all .25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border-radius: 50%;
+}
+
+.gdpr-switch input:checked + .gdpr-slider {
+  background-color: var(--cream);
+  border-color: var(--gold);
+}
+
+.gdpr-switch input:checked + .gdpr-slider:before {
+  transform: translateX(17px);
+  background-color: var(--wine);
+}
+
+.gdpr-switch input:disabled + .gdpr-slider {
+  opacity: 0.5;
+  background-color: rgba(221, 208, 186, 0.2);
+  border-color: var(--line);
+}
+
+.gdpr-switch input:disabled + .gdpr-slider:before {
+  background-color: var(--line);
+}
+
+.gdpr-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  margin-top: 8px;
+}
+
+.gdpr-btn {
+  padding: 10px 14px;
+  border-radius: 999px; /* Gilded pill-shaped outline matches the rest of the site's buttons */
+  font-size: 12px;
+  font-weight: 500;
+  font-family: 'Sora', sans-serif;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ink);
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1; /* Distributes space equally among the three buttons */
+  min-width: 0; /* Prevents text overflow */
+}
+
+.gdpr-btn-secondary {
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+}
+
+.gdpr-btn-secondary:hover {
+  background-color: var(--cream);
+  border-color: var(--gold);
+  color: var(--ink);
+}
+
+.gdpr-btn-secondary.active {
+  background-color: var(--wine);
+  color: #fff;
+  border-color: var(--wine);
+}
+
+.gdpr-btn-primary {
+  background-color: var(--wine);
+  color: #ffffff;
+  border: 1px solid var(--wine);
+}
+
+.gdpr-btn-primary:hover {
+  background-color: var(--wine-dark);
+  border-color: var(--wine-dark);
+  box-shadow: 0 4px 15px rgba(20, 82, 97, 0.15);
+}
+
+/* Elegant Accent highlight on primary CTA */
+.gdpr-btn-accent {
+  background-color: var(--wine);
+  border: 1.5px solid var(--gold); /* Classic Gilded Framed button border */
+}
+
+.gdpr-btn-accent:hover {
+  background-color: var(--wine-dark);
+  border-color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .gdpr-banner {
+    bottom: 0;
+    right: 0;
+    left: 0;
+    max-width: 100%;
+    border-radius: 16px 16px 0 0;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    padding: 28px 24px;
+    gap: 18px;
+  }
+
+  .gdpr-header {
+    padding-bottom: 14px;
+  }
+
+  .gdpr-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .gdpr-btn {
+    width: 100%;
+    text-align: center;
+    padding: 13px;
+  }
+}
+
