@@ -1,11 +1,95 @@
-import { useEffect, useRef, useState, useMemo } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { Menu } from 'lucide-react'
 
 const WINES = [
-  { file: 'vin-cotes-du-rhone.jpg', name: "Côtes du Rhône '19", price: '42 €' },
-  { file: 'vin-chablis.jpg', name: 'Chablis Grand Cru', price: '58 €' },
-  { file: 'vin-bourgogne.jpg', name: 'Bourgogne Pinot Noir', price: '36 €' },
-  { file: 'vin-champagne.jpg', name: 'Champagne Brut', price: '65 €' },
+  { file: 'red-wine.png', region: 'Bordeaux', type: 'Rouge', name: 'Sélection Bordeaux rouge' },
+  { file: 'white-wine.png', region: 'Bordeaux', type: 'Blanc', name: 'Sélection Bordeaux blanc' },
+  { file: 'vin-bourgogne.png', region: 'Bourgogne', type: 'Rouge', name: 'Sélection Bourgogne rouge' },
+  { file: 'vin-chablis.png', region: 'Bourgogne', type: 'Blanc', name: 'Sélection Bourgogne blanc' },
+  { file: 'vin-cotes-du-rhone.png', region: 'Vallée du Rhône', type: 'Rouge', name: 'Sélection Rhône rouge' },
+  { file: 'white-wine.png', region: 'Vallée du Rhône', type: 'Blanc', name: 'Sélection Rhône blanc' },
+  { file: 'red-wine.png', region: 'Vallée de la Loire', type: 'Rouge', name: 'Sélection Loire rouge' },
+  { file: 'white-wine.png', region: 'Vallée de la Loire', type: 'Blanc', name: 'Sélection Loire blanc' },
+  { file: 'red-wine.png', region: 'Alsace', type: 'Rouge', name: 'Sélection Alsace rouge' },
+  { file: 'white-wine.png', region: 'Alsace', type: 'Blanc', name: 'Sélection Alsace blanc' },
+  { file: 'red-wine.png', region: 'Languedoc-Roussillon', type: 'Rouge', name: 'Sélection Languedoc rouge' },
+  { file: 'white-wine.png', region: 'Languedoc-Roussillon', type: 'Blanc', name: 'Sélection Languedoc blanc' },
+]
+
+const SPIRITS = [
+  { file: 'wine-tasting.png', category: 'Whisky', name: 'Sélection Whisky' },
+  { file: 'wine-display.png', category: 'Rhum', name: 'Sélection Rhum' },
+  { file: 'wine-glasses.png', category: 'Gin', name: 'Sélection Gin' },
+  { file: 'wine-tasting.png', category: 'Cognac', name: 'Sélection Cognac' },
+  { file: 'wine-display.png', category: 'Armagnac', name: 'Sélection Armagnac' },
+  { file: 'wine-glasses.png', category: 'Calvados', name: 'Sélection Calvados' },
+  { file: 'wine-tasting.png', category: 'Tequila', name: 'Sélection Tequila' },
+  { file: 'wine-display.png', category: 'Mezcal', name: 'Sélection Mezcal' },
+  { file: 'wine-glasses.png', category: 'Vodka', name: 'Sélection Vodka' },
+  { file: 'wine-tasting.png', category: 'Liqueurs', name: 'Sélection Liqueurs' },
+]
+
+const CAVES = [
+  {
+    name: 'Le Cellier Le Mans',
+    city: 'Le Mans',
+    address: '44 Av. François Mitterrand, 72000 Le Mans',
+    phone: '09 88 52 80 34',
+    phoneHref: '+33988528034',
+    rating: '4,9',
+    reviewCount: '39 avis',
+    maps: 'https://www.google.com/maps/search/?api=1&query=Le+Cellier+Le+Mans+44+Avenue+Francois+Mitterrand+72000+Le+Mans',
+  },
+  {
+    name: 'Le Cellier de Connerré',
+    city: 'Connerré',
+    address: '11 Rue de Paris, 72160 Connerré',
+    phone: '09 88 09 31 47',
+    phoneHref: '+33988093147',
+    rating: '4,9',
+    reviewCount: '53 avis',
+    maps: 'https://www.google.com/maps/search/?api=1&query=Le+Cellier+de+Connerre+11+Rue+de+Paris+72160+Connerre',
+  },
+  {
+    name: 'Le Cellier La Ferté-Bernard',
+    city: 'La Ferté-Bernard',
+    address: '17 Rue Carnot, 72400 La Ferté-Bernard',
+    phone: '02 43 93 36 79',
+    phoneHref: '+33243933679',
+    rating: '4,4',
+    reviewCount: '32 avis',
+    maps: 'https://www.google.com/maps/search/?api=1&query=Le+Cellier+17+Rue+Carnot+72400+La+Ferte-Bernard',
+  },
+  {
+    name: 'Cave Le Cellier Mamers',
+    city: 'Mamers',
+    address: '52 Place Carnot, 72600 Mamers',
+    phone: '09 81 30 12 20',
+    phoneHref: '+33981301220',
+    rating: null,
+    reviewCount: null,
+    maps: 'https://www.google.com/maps/search/?api=1&query=Cave+Le+Cellier+Mamers+52+Place+Carnot+72600+Mamers',
+  },
+  {
+    name: 'Le Cellier Bonnétable',
+    city: 'Bonnétable',
+    address: '19 Rue du Maréchal Joffre, 72110 Bonnétable',
+    phone: '09 84 03 87 24',
+    phoneHref: '+33984038724',
+    rating: '5,0',
+    reviewCount: '7 avis',
+    maps: 'https://www.google.com/maps/search/?api=1&query=Le+Cellier+Bonnetable+19+Rue+du+Marechal+Joffre+72110+Bonnetable',
+  },
+  {
+    name: 'Le Cellier Nogent',
+    city: 'Nogent-le-Rotrou',
+    address: '5 Rue Villette Gâte, 28400 Nogent-le-Rotrou',
+    phone: '09 82 25 24 99',
+    phoneHref: '+33982252499',
+    rating: '5,0',
+    reviewCount: '6 avis',
+    maps: 'https://www.google.com/maps/search/?api=1&query=Le+Cellier+Nogent+5+Rue+Villette+Gate+28400+Nogent-le-Rotrou',
+  },
 ]
 
 const SCHEDULE = [
@@ -48,113 +132,63 @@ const PARTNERS = [
 ]
 
 const GIFT_IDEAS = [
-  { name: 'Coffret Découverte 3 Vins', price: '52 €', desc: 'Trois vins sélectionnés pour débuter' },
-  { name: 'Pairing Vin & Fromage', price: '68 €', desc: 'Vin + sélection de fromages partenaires' },
-  { name: 'Atelier Dégustation Privé', price: '120 € / pers', desc: 'Pour 2 à 4 personnes avec caviste' },
-  { name: 'Accessoires Premium', price: '35 €', desc: 'Verre à vin + carafe + bouchon' },
+  { name: 'Coffret bière sur mesure', desc: 'Une composition personnalisée selon les goûts et les envies.' },
+  { name: 'Champagne festif', desc: 'Une belle bouteille pour célébrer les moments qui comptent.' },
+  { name: 'Coffret de bouteilles de vin', desc: 'Une sélection de plusieurs bouteilles choisies avec votre caviste.' },
+  { name: 'Grand cru bordelais', desc: 'Une bouteille d’exception pour un cadeau marquant.' },
+  { name: 'Accessoires', desc: 'Verres, carafes, tire-bouchons et accessoires autour du vin.' },
+  { name: 'Dégustation privée', desc: 'Un moment privilégié de découverte et de partage autour de nos sélections.' },
 ]
 
 const REVIEWS = [
   {
-    name: "Laure LEMEE",
-    text: "Un grand merci à Léo pour ses précieux conseils ! Toujours à l'écoute et très professionnel, il sait parfaitement orienter ses clients pour trouver la bouteille idéale pour offrir (même pour les personnes qui ne s'y connaissent pas en vin). Je recommande et je reviendrais ! A bientôt"
+    name: 'Laure LEMEE',
+    text: "Un grand merci à Léo pour ses précieux conseils ! Toujours à l'écoute et très professionnel, il sait parfaitement orienter ses clients pour trouver la bouteille idéale pour offrir. Je recommande et je reviendrai !",
   },
   {
-    name: "Jade LEROY",
-    text: "Je recommande vivement cette cave à vin ! De nombreux choix s’offrent à nous et les conseillers de ventes sont très agréables.\nNous avons été conseillés pas Léo, qui a su répondre parfaitement à nos besoins et qui nous a très bien accueilli. Je reviendrais sans hésiter !"
+    name: 'Jade LEROY',
+    text: "Je recommande vivement cette cave à vin ! De nombreux choix s’offrent à nous et les conseillers sont très agréables. Nous avons été très bien accueillis et conseillés.",
   },
   {
-    name: "Mathilde JM",
-    text: "Merci à Léo pour l’accueil et ses conseilles !\nUne très bonne sélections de vin ( vin blanc, rouge et un champagne). Je reviendrais et je recommande vivement"
+    name: 'Mathilde JM',
+    text: "Une très bonne sélection de vins, du blanc au rouge en passant par le champagne. Très bon accueil et de précieux conseils. Je recommande vivement.",
   },
   {
-    name: "Isabelle Robert",
-    text: "Un caviste avec beaucoup de choix , vins rhums, wisky...\nTrès élégant au centre du Mans avec de temps en temps des dégustations thématiques. Très sympa"
+    name: 'Isabelle Robert',
+    text: "Un caviste avec beaucoup de choix : vins, rhums, whiskys… Une très belle cave et des dégustations thématiques très sympathiques.",
   },
   {
-    name: "Chloé B",
-    text: "Première visite réussie juste avant les fêtes ! Je cherchais une bouteille de whisky, et n'y connaissant pas grand-chose, j'ai demandé conseil à l'un des employés qui m'a aidé avec enthousiasme. Même avec un budget un peu serré et peu d'informations de ma part il a tout a fait cerné ce qu'il me fallait et ne m'a pas du tout poussé vers un choix hors budget. Mon grand-père, pour qui était la bouteille, l'a adorée ! Je reviendrai :)"
+    name: 'Chloé B',
+    text: "Première visite réussie juste avant les fêtes ! J’ai demandé conseil pour un whisky et le vendeur a parfaitement cerné ce qu’il me fallait, sans me pousser hors budget.",
   },
   {
-    name: "A2F AGENCE",
-    text: "Réservation pour une dégustation de vins avec les membres de l'entreprise. Nous avons été très bien accueillit et ce fut très enrichissant. Le gérant a su nous transmettre sa passion à travers ses nombreuses explications. Encore merci pour ce superbe moment nous en sommes ravis."
+    name: 'A2F AGENCE',
+    text: "Réservation pour une dégustation de vins avec les membres de l'entreprise. Nous avons été très bien accueillis et ce fut très enrichissant. Un superbe moment.",
   },
   {
-    name: "Guillaume Michaud",
-    text: "Super accueil avec Alban et toute son équipe.\nUne cave magnifique et des flacons incroyable.\nUn passionné qui répond parfaitement à sa clientèle.\nLe petit plus : les dégustations."
+    name: 'Scan',
+    text: "Excellent magasin de vin et spiritueux. Accueil agréable et grand choix de références. Je recommande !",
   },
   {
-    name: "Scan",
-    text: "Excellent magasin de vin et spiritueux. Accueil agréable et on peut sentir et tester avant d'acheter. Grand choix de spiritueux. Je recommande !"
+    name: 'Boitiere Lydie',
+    text: "Personnel à l'écoute, très bon conseil et souriant. Très beau magasin, il y en a pour tous les goûts et tous les budgets.",
   },
   {
-    name: "Denis Lemesle",
-    text: "Merci au Cellier pour son accueil, son accompagnement, ses conseils et sa confiance pour fournir les vins de notre mariage!! Alban et son équipe ont été au top!!"
+    name: 'Marina B',
+    text: "Très jolie cave, large choix, accueil souriant mais surtout de très bons conseils. Je recommande fortement.",
   },
   {
-    name: "Boitiere Lydie",
-    text: "Personnel à l'écoute, très bon conseil.\nSouriant. Très beau magasin. Il y a pour tout les goûts et à tous les prix"
+    name: 'Alexandre Hatton',
+    text: "D’une extrême gentillesse et bienveillance au téléphone. Les bouteilles ont été mises au frais avant que je les récupère. Franchement génial !",
   },
   {
-    name: "Marina B",
-    text: "Très jolie cave, large choix, accueil souriant mais surtout de très bon conseils. Je recommande fortement"
+    name: 'hugo berceron',
+    text: "Super accueil, toujours bienveillant avec de super conseils. Je recommande la bonne humeur et le professionnalisme de cette cave !",
   },
   {
-    name: "Alexandre Hatton",
-    text: "D’une extrême gentillesse et bienveillance au téléphone, les bouteilles ont été mises au frais avant que je les récupère. Franchement génial, j’y retournerais ! Merci à vous !"
+    name: 'Lise Evrard',
+    text: "Très bonne expérience dans cette cave. Nous avons été parfaitement conseillés et le cadeau était idéal.",
   },
-  {
-    name: "Sominia Nia",
-    text: "Vendeur très agréable qui a su orienté mon choix alors que je suis novice. Hâte d'ouvrir la bouteille."
-  },
-  {
-    name: "hugo berceron",
-    text: "Super accueil, toujours bienveillant avec des supers conseils.\nJe recommande la bonne humeur et le professionnalisme de cette cave !!"
-  },
-  {
-    name: "Guillaume Coudreuse",
-    text: "Très bons conseils, personnels souriants et bonnes bouteilles en tout genre."
-  },
-  {
-    name: "Sandrine Zugetta",
-    text: "Magasin très agréable tout comme le personnel. Je recommande !"
-  },
-  {
-    name: "Dominique Dubois",
-    text: "Très bonne cave ont y trouve de quoi se régaler."
-  },
-  {
-    name: "Jessica Goncalves",
-    text: "Acceuil très sympa et très belle boutique avec de bons conseils !"
-  },
-  {
-    name: "David Boffelli",
-    text: "De très bons conseils. Personnel hyper agréable et très à l'écoute."
-  },
-  {
-    name: "Marie Sourisseau",
-    text: "Je recommande +++ personnel chaleureux et à l’écoute"
-  },
-  {
-    name: "Rémi Marchand",
-    text: "Des conseils personnalisés , idéal pour faire un cadeau."
-  },
-  {
-    name: "Longuemard Aurelien",
-    text: "Très bon accueil et très bon produit."
-  },
-  {
-    name: "Valdo PolarOil",
-    text: "Excellents services et conseils."
-  },
-  {
-    name: "Touffait Valentin",
-    text: "De très bons conseils ! Je reviendrais."
-  },
-  {
-    name: "Lise Evrard",
-    text: "Très bonne expérience dans cette cave. Leo nous a mieux conseillé que Chat GPT !\nCadeau parfait pour mon papa !"
-  }
 ]
 
 function scrollToId(id) {
@@ -297,7 +331,7 @@ function GdprBanner({ isOpen, onClose }) {
       </div>
 
       <p className="gdpr-text">
-        Alban et son équipe sélectionnent avec rigueur nos flacons comme vos données. 
+        Nos équipes sélectionnent avec rigueur nos flacons comme vos données. 
         Nous utilisons des cookies afin d'analyser l'audience, optimiser l'expérience et vous proposer des contenus personnalisés de nos vignerons partenaires.
       </p>
 
@@ -375,7 +409,6 @@ function GdprBanner({ isOpen, onClose }) {
 }
 
 export default function App() {
-  const menuTrackRef = useRef(null)
   const [geoText, setGeoText] = useState('')
   const [menuOpen, setMenuOpen] = useState(false)
   const [showGdpr, setShowGdpr] = useState(false)
@@ -412,19 +445,12 @@ export default function App() {
     )
   }, [])
 
-  function scrollMenu(offset) {
-    menuTrackRef.current?.scrollBy({ left: offset, behavior: 'smooth' })
-  }
-
   function handleContactSubmit(e) {
     e.preventDefault()
     alert('Message envoyé — nous revenons vers vous rapidement.')
     e.target.reset()
   }
 
-  function handleReserveGift(giftName) {
-    alert(`Vous avez cliqué sur "${giftName}". Veuillez nous contacter pour réserver.`)
-  }
 
   function handleMenuClick() {
     setMenuOpen(!menuOpen)
@@ -438,17 +464,16 @@ export default function App() {
     <>
       {/* HERO */}
       <section className="hero" id="top">
-        <img src="/wine-cellar.png" alt="Le Cellier Wine Cellar" />
+        <img className="hero-bg" src="/wine-cellar.png" alt="Cave Le Cellier" />
         <nav className="nav">
-          <div className="logo" onClick={() => scrollToId('top')}>
-            <span className="brand-le">Le</span>
-            <span>Cellier</span>
-            <span className="brand-dot">.</span>
-          </div>
+          <button className="nav-logo" onClick={() => scrollToId('top')} aria-label="Retour en haut de la page">
+            <img src="/logo-le-cellier.png" alt="Le Cellier" />
+          </button>
           
           <div className="nav-links">
             <button onClick={() => scrollToId('top')}>Accueil</button>
             <button onClick={() => scrollToId('about')}>À propos</button>
+            <button onClick={() => scrollToId('caves')}>Nos caves</button>
             <button onClick={() => scrollToId('selection')}>Sélection</button>
             <button onClick={() => scrollToId('gifts')}>Cadeaux</button>
             <button onClick={() => scrollToId('planning')}>Planning</button>
@@ -471,6 +496,7 @@ export default function App() {
               <div className="mobile-menu">
                 <button onClick={() => { scrollToId('top'); closeMenu(); }}>Accueil</button>
                 <button onClick={() => { scrollToId('about'); closeMenu(); }}>À propos</button>
+                <button onClick={() => { scrollToId('caves'); closeMenu(); }}>Nos caves</button>
                 <button onClick={() => { scrollToId('selection'); closeMenu(); }}>Sélection</button>
                 <button onClick={() => { scrollToId('gifts'); closeMenu(); }}>Cadeaux</button>
                 <button onClick={() => { scrollToId('planning'); closeMenu(); }}>Planning</button>
@@ -482,9 +508,7 @@ export default function App() {
         <div className="hero-content">
           <h1 className="hero-title">Le Cellier</h1>
           <p className="hero-sub">
-            Une cave à vins de caractère, nichée sous voûte de pierre.
-            <br />
-            Dégustations, conseils et flacons rares.
+            Depuis plus de 20 ans, nous mettons notre passion du vin, des spiritueux et de la bière au service des amateurs de la Sarthe. Six caves à votre écoute, plus de 1 500 références soigneusement sélectionnées, et une seule promesse : vous guider vers la bouteille parfaite.
           </p>
           <div className="hero-cta">
             <button className="pill-btn solid" onClick={() => scrollToId('planning')}>
@@ -506,46 +530,107 @@ export default function App() {
           </h2>
           <div className="about-grid">
             <p>
-              Le Cellier est une cave à vins familiale où se croisent vignerons passionnés et amateurs curieux. Nos
-              étagères rassemblent des appellations françaises et des découvertes plus confidentielles, sélectionnées
-              à la source pour leur authenticité et leur régularité.
+              Fondé il y a plus de 20 ans, Le Cellier est né d'une passion simple et sincère : mettre les meilleures bouteilles entre toutes les mains. Au fil des années, nous avons tissé des liens forts avec nos clients, nos vignerons et nos producteurs, bâtissant ainsi un réseau de 6 caves de proximité implanté au cœur de la Sarthe.
             </p>
             <p>
-              Chaque semaine, nous ouvrons quelques flacons pour vous les faire goûter avant l'achat. Nos conseillers
-              vous accompagnent selon vos goûts, votre budget et l'occasion, qu'il s'agisse d'un accord mets-vins ou
-              d'un cadeau à offrir.
+              Notre force ? Une équipe de passionnés qui connaît ses références sur le bout des doigts et prend le temps de vous écouter, que vous cherchiez un vin du quotidien, une bouteille d'exception ou le cadeau idéal. Avec plus de 1 500 références : vins, champagnes, spiritueux, bières artisanales et épicerie fine, nous avons de quoi satisfaire tous les palais et toutes les occasions.
             </p>
           </div>
         </div>
       </section>
 
-      {/* SELECTION */}
-      <section className="section" id="selection" style={{ paddingTop: 0 }}>
+      {/* NOS CAVES */}
+      <section className="section caves-section" id="caves">
         <div className="wrap">
-          <div className="menu-header">
-            <div>
-              <span className="eyebrow">Notre cave</span>
-              <h2 className="head" style={{ margin: 0 }}>
-                Une <i>sélection</i> du moment
-              </h2>
-            </div>
-            <div className="menu-nav">
-              <div className="arrow-btn" onClick={() => scrollMenu(-280)}>←</div>
-              <div className="arrow-btn" onClick={() => scrollMenu(280)}>→</div>
+          <span className="eyebrow">Le réseau Le Cellier</span>
+          <div className="caves-heading-row">
+            <h2 className="head">
+              Nos <i>6 caves</i>
+            </h2>
+            <p className="caves-intro">Retrouvez la cave la plus proche de chez vous et accédez directement à sa fiche Google.</p>
+          </div>
+          <div className="caves-grid">
+            {CAVES.map((cave) => (
+              <article className="cave-card" key={cave.city}>
+                <div className="cave-card-top">
+                  <div>
+                    <span className="cave-city">{cave.city}</span>
+                    <h3>{cave.name}</h3>
+                  </div>
+                  {cave.rating && (
+                    <div className="google-rating" aria-label={`${cave.rating} sur 5, ${cave.reviewCount}`}>
+                      <span className="star">★</span>
+                      <strong>{cave.rating}</strong>
+                      <small>{cave.reviewCount}</small>
+                    </div>
+                  )}
+                </div>
+                <p className="cave-address">{cave.address}</p>
+                <div className="cave-actions">
+                  <a className="cave-phone" href={`tel:${cave.phoneHref}`}>{cave.phone}</a>
+                  <a className="google-link" href={cave.maps} target="_blank" rel="noopener noreferrer">
+                    Voir la fiche Google <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SELECTION */}
+      <section className="section selection-section" id="selection">
+        <div className="wrap">
+          <span className="eyebrow">Notre cave</span>
+          <h2 className="head">
+            Une <i>sélection</i> de toute la France
+          </h2>
+          <p className="selection-intro">
+            Douze emplacements pour mettre en avant un blanc et un rouge de six grandes régions viticoles françaises. Les visuels actuels servent de base et pourront être remplacés par les bouteilles définitives.
+          </p>
+        </div>
+
+        <div className="marquee-shell" aria-label="Sélection de vins">
+          <div className="selection-marquee wine-marquee">
+            <div className="selection-track">
+              {[...WINES, ...WINES].map((wine, index) => (
+                <article className="selection-card" key={`${wine.region}-${wine.type}-${index}`}>
+                  <div className="selection-photo">
+                    <img src={`/${wine.file}`} alt={wine.name} loading="lazy" />
+                    <span className={`wine-type ${wine.type === 'Rouge' ? 'red' : 'white'}`}>{wine.type}</span>
+                  </div>
+                  <div className="selection-meta">
+                    <span>{wine.region}</span>
+                    <strong>{wine.name}</strong>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
-          <div className="menu-track" ref={menuTrackRef}>
-            {WINES.map((wine) => (
-              <div className="menu-card" key={wine.file}>
-                <div className="photo">
-                  <img src={`/${wine.file.replace('.jpg', '.png')}`} alt={wine.name} />
-                </div>
-                <div className="menu-meta">
-                  <span className="name">{wine.name}</span>
-                  <span className="tag price">{wine.price}</span>
-                </div>
-              </div>
-            ))}
+        </div>
+
+        <div className="wrap spirits-heading">
+          <span className="eyebrow">Whiskys, rhums & autres découvertes</span>
+          <h3 className="spirits-title">Notre sélection de <i>spiritueux</i></h3>
+          <p className="selection-intro">Dix emplacements dédiés aux spiritueux, avec un défilement en sens inverse.</p>
+        </div>
+
+        <div className="marquee-shell" aria-label="Sélection de spiritueux">
+          <div className="selection-marquee reverse">
+            <div className="selection-track">
+              {[...SPIRITS, ...SPIRITS].map((spirit, index) => (
+                <article className="selection-card spirit-card" key={`${spirit.category}-${index}`}>
+                  <div className="selection-photo">
+                    <img src={`/${spirit.file}`} alt={spirit.name} loading="lazy" />
+                    <span className="spirit-type">{spirit.category}</span>
+                  </div>
+                  <div className="selection-meta">
+                    <span>Spiritueux</span>
+                    <strong>{spirit.name}</strong>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -577,16 +662,13 @@ export default function App() {
             Idées <i>cadeaux</i>
           </h2>
           <div className="gift-grid">
-            {GIFT_IDEAS.map((gift) => (
+            {GIFT_IDEAS.map((gift, index) => (
               <div className="gift-card" key={gift.name}>
+                <span className="gift-number">0{index + 1}</span>
                 <div className="gift-header">
                   <span className="gift-name">{gift.name}</span>
-                  <span className="gift-price">{gift.price}</span>
                 </div>
                 <p className="gift-desc">{gift.desc}</p>
-                <button className="gift-btn" onClick={() => handleReserveGift(gift.name)}>
-                  Réserver
-                </button>
               </div>
             ))}
           </div>
@@ -693,10 +775,11 @@ export default function App() {
       <footer>
         <div className="wrap">
           <div className="footer-grid">
-            <div className="logo dark" style={{ fontSize: 20 }}>Le Cellier</div>
+            <button className="footer-logo" onClick={() => scrollToId('top')} aria-label="Retour en haut de la page"><img src="/logo-le-cellier.png" alt="Le Cellier" /></button>
             <div className="footer-col">
               <a href="#top">Accueil</a>
-              <a href="#">À propos</a>
+              <a href="#about">À propos</a>
+              <a href="#caves">Nos caves</a>
               <a href="#planning">Planning</a>
               <a href="#contact">Nous trouver</a>
               <a href="#" onClick={(e) => { e.preventDefault(); setShowGdpr(true); }}>Gestion des cookies (RGPD)</a>

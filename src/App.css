@@ -116,6 +116,35 @@ a {
   z-index: 5;
 }
 
+.nav-logo {
+  width: 86px;
+  height: 86px;
+  padding: 7px;
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 18px;
+  background: rgba(243, 237, 225, .94);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .16);
+  cursor: pointer;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform .2s ease, box-shadow .2s ease;
+  flex-shrink: 0;
+}
+
+.nav-logo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .2);
+}
+
+.nav-logo img {
+  position: static;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: none;
+}
+
 .logo {
   font-family: 'Playfair Display', serif;
   font-style: italic;
@@ -337,7 +366,7 @@ a {
   overflow: hidden;
 }
 
-.hero img {
+.hero-bg {
   position: absolute;
   inset: 0;
   filter: brightness(.5) saturate(1.05);
@@ -377,7 +406,8 @@ a {
   font-size: 15px;
   letter-spacing: .2px;
   color: rgba(255, 255, 255, .9);
-  max-width: 440px;
+  max-width: 820px;
+  line-height: 1.7;
 }
 
 .hero-cta {
@@ -488,6 +518,276 @@ a {
   font-weight: 600;
 }
 
+/* CAVES */
+.caves-section {
+  background: var(--cream-2);
+}
+
+.caves-heading-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 40px;
+  margin-bottom: 32px;
+}
+
+.caves-heading-row .head {
+  margin-bottom: 0;
+}
+
+.caves-intro {
+  max-width: 470px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.caves-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.cave-card {
+  background: rgba(255, 255, 255, .5);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 24px;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+
+.cave-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, .78);
+  box-shadow: 0 14px 34px rgba(34, 26, 22, .08);
+}
+
+.cave-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.cave-city {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+.cave-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  line-height: 1.25;
+  font-weight: 500;
+}
+
+.google-rating {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 4px;
+  align-items: center;
+  justify-items: end;
+  flex-shrink: 0;
+}
+
+.google-rating .star {
+  color: #e3b23c;
+  font-size: 15px;
+}
+
+.google-rating strong {
+  font-size: 13px;
+}
+
+.google-rating small {
+  grid-column: 1 / -1;
+  color: var(--ink-soft);
+  font-size: 10px;
+}
+
+.cave-address {
+  margin-top: 22px;
+  color: var(--ink-soft);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+.cave-actions {
+  margin-top: auto;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+}
+
+.cave-phone {
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.google-link {
+  color: var(--wine);
+  font-weight: 700;
+  text-align: right;
+}
+
+.google-link:hover {
+  text-decoration: underline;
+}
+
+/* AUTO SELECTION CAROUSELS */
+.selection-section {
+  overflow: hidden;
+}
+
+.selection-intro {
+  max-width: 720px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.7;
+  margin-top: -4px;
+  margin-bottom: 34px;
+}
+
+.marquee-shell {
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+}
+
+.selection-marquee {
+  overflow: hidden;
+  width: 100%;
+}
+
+.selection-track {
+  display: flex;
+  width: max-content;
+  gap: 18px;
+  padding: 8px 9px 18px;
+  animation: selection-scroll 48s linear infinite;
+  will-change: transform;
+}
+
+.selection-marquee.reverse .selection-track {
+  animation-name: selection-scroll-reverse;
+  animation-duration: 42s;
+}
+
+.selection-marquee:hover .selection-track {
+  animation-play-state: paused;
+}
+
+@keyframes selection-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-50% - 9px)); }
+}
+
+@keyframes selection-scroll-reverse {
+  from { transform: translateX(calc(-50% - 9px)); }
+  to { transform: translateX(0); }
+}
+
+.selection-card {
+  width: 238px;
+  flex: 0 0 238px;
+}
+
+.selection-photo {
+  position: relative;
+  height: 310px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #ddd0ba;
+  box-shadow: 0 10px 24px rgba(34, 26, 22, .08);
+}
+
+.selection-photo img {
+  transition: transform .45s ease;
+}
+
+.selection-card:hover .selection-photo img {
+  transform: scale(1.035);
+}
+
+.wine-type,
+.spirit-type {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.wine-type.red {
+  background: rgba(83, 20, 30, .88);
+  color: white;
+}
+
+.wine-type.white {
+  background: rgba(243, 237, 225, .9);
+  color: var(--ink);
+}
+
+.spirit-type {
+  background: rgba(12, 53, 63, .88);
+  color: white;
+}
+
+.selection-meta {
+  padding: 13px 2px 0;
+}
+
+.selection-meta span {
+  display: block;
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.selection-meta strong {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.spirits-heading {
+  padding-top: 62px;
+}
+
+.spirits-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.spirits-title i {
+  color: var(--wine);
+}
+
 /* GIFT IDEAS */
 .gift-grid {
   display: grid;
@@ -497,6 +797,7 @@ a {
 }
 
 .gift-card {
+  position: relative;
   background: var(--cream-2);
   border-radius: 14px;
   padding: 28px;
@@ -507,6 +808,15 @@ a {
 .gift-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(20, 82, 97, .08);
+}
+
+.gift-number {
+  display: inline-block;
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  margin-bottom: 24px;
 }
 
 .gift-header {
@@ -951,6 +1261,21 @@ footer {
   margin-bottom: 50px;
 }
 
+.footer-logo {
+  width: 100px;
+  height: 100px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.footer-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .footer-col a {
   display: block;
   font-size: 13.5px;
@@ -989,7 +1314,50 @@ footer {
   font-size: 14px;
 }
 
+@media(max-width:1000px) {
+  .caves-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .nav-links {
+    gap: 20px;
+  }
+
+  .nav-logo {
+    width: 74px;
+    height: 74px;
+  }
+}
+
 @media(max-width:820px) {
+  .nav-logo {
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    padding: 5px;
+  }
+
+  .caves-heading-row {
+    display: block;
+  }
+
+  .caves-intro {
+    margin-top: 14px;
+  }
+
+  .caves-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .selection-card {
+    width: 210px;
+    flex-basis: 210px;
+  }
+
+  .selection-photo {
+    height: 276px;
+  }
+
   .about-grid {
     grid-template-columns: 1fr;
     gap: 24px;
@@ -1074,6 +1442,47 @@ footer {
 }
 
 @media(max-width:480px) {
+  .nav-logo {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+  }
+
+  .hero-sub {
+    line-height: 1.55;
+  }
+
+  .cave-card {
+    padding: 19px;
+    min-height: 205px;
+  }
+
+  .cave-actions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .google-link {
+    text-align: left;
+  }
+
+  .selection-card {
+    width: 170px;
+    flex-basis: 170px;
+  }
+
+  .selection-photo {
+    height: 225px;
+  }
+
+  .spirits-heading {
+    padding-top: 42px;
+  }
+
+  .spirits-title {
+    font-size: 24px;
+  }
+
   body {
     font-size: 14px;
   }
@@ -1582,3 +1991,11 @@ footer {
   }
 }
 
+
+
+@media (prefers-reduced-motion: reduce) {
+  .selection-track,
+  .carousel-band {
+    animation-play-state: paused;
+  }
+}
