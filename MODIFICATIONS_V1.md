@@ -38,3 +38,17 @@
 Les visuels des 12 vins et des 10 spiritueux utilisent actuellement les images déjà présentes dans le projet comme visuels temporaires. Ils peuvent être remplacés directement dans `public/` puis associés dans `src/App.jsx` lorsque les bouteilles définitives seront connues.
 
 Les logos partenaires peuvent être ajoutés dès réception et remplacer les entrées `exemple` dans `PARTNERS` (`src/App.jsx`).
+
+## Retours complémentaires — V2 (14/08/2026)
+
+- **Planning multi-caves** : ajout d'un sélecteur pour afficher les horaires de chacune des 6 caves sans surcharger la page.
+- **Horaires** : intégration des horaires actuellement publiés pour Le Mans, Connerré, La Ferté-Bernard, Mamers, Bonnétable et Nogent-le-Rotrou.
+- **Itinéraire** : chaque cave du planning possède un lien direct vers Google Maps.
+- **Où nous trouver** : remplacement de la carte centrée uniquement sur Le Mans par une carte interactive du réseau avec **6 points**.
+- **Liste sous/à côté de la carte** : les 6 adresses sont visibles et chaque ligne ouvre l'itinéraire correspondant.
+- **Logo d'en-tête** : création d'une variante bleue, cohérente avec la couleur principale du site (`#145261`), sans altérer le blason ni les dorures.
+- **Sélections** : conservation d'une bouteille par cadre pour garder un rendu premium et lisible ; textes internes sur les « emplacements » remplacés par des textes destinés aux visiteurs.
+- **Photos cadeaux / sélections** : structure conservée afin de remplacer simplement les visuels lorsque les photos définitives seront reçues.
+
+### Carte
+La carte utilise Leaflet + OpenStreetMap pour éviter de dépendre d'une clé API Google Maps. Les liens d'itinéraire restent des liens Google Maps vers les adresses officielles.

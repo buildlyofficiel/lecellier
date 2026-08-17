@@ -1,10 +1,6 @@
 {
-  "name": "Le Cellier — Cave à vins",
-  "description": "Une cave à vins de caractère nichée au Mans. Dégustations, conseils et flacons rares.",
-  "requestFramePermissions": [
-    "geolocation"
-  ],
-  "majorCapabilities": [
-    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
-  ]
+  "name": "Le Cellier — Caviste au Mans, Sarthe & Perche",
+  "description": "Réseau de 6 caves au Mans, Connerré, La Ferté-Bernard, Mamers, Bonnétable et Nogent-le-Rotrou. Vins, champagnes, bières et spiritueux.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": []
 }

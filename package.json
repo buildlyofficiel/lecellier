@@ -7,7 +7,10 @@
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "vite build"
+    "lint": "vite build",
+    "predev": "node scripts/generate-seo.mjs",
+    "prebuild": "node scripts/generate-seo.mjs",
+    "seo": "node scripts/generate-seo.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.28.0",

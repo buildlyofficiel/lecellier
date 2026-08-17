@@ -1999,3 +1999,301 @@ footer {
     animation-play-state: paused;
   }
 }
+
+/* V2 — horaires multi-caves */
+.cave-tabs {
+  display: flex;
+  gap: 9px;
+  overflow-x: auto;
+  padding: 4px 2px 14px;
+  margin: 8px 0 24px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,.25) transparent;
+}
+
+.cave-tabs button {
+  flex: 0 0 auto;
+  border: 1px solid rgba(255, 255, 255, .2);
+  background: rgba(255, 255, 255, .04);
+  color: rgba(243, 237, 225, .76);
+  border-radius: 999px;
+  padding: 10px 15px;
+  font: 500 12px/1 'Inter', sans-serif;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
+  white-space: nowrap;
+}
+
+.cave-tabs button:hover {
+  color: #fff;
+  border-color: rgba(227, 185, 90, .6);
+  transform: translateY(-1px);
+}
+
+.cave-tabs button.active {
+  background: #e3b95a;
+  border-color: #e3b95a;
+  color: var(--wine-dark);
+}
+
+.schedule-panel {
+  min-width: 0;
+}
+
+.schedule-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, .15);
+}
+
+.schedule-label {
+  display: block;
+  color: #e3b95a;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  font-size: 10.5px;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.schedule-heading h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: #fff;
+  line-height: 1.15;
+  margin: 0 0 6px;
+}
+
+.schedule-heading p {
+  color: rgba(243, 237, 225, .62);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.schedule-heading > a {
+  flex: 0 0 auto;
+  color: #e3b95a;
+  font-size: 12px;
+  border-bottom: 1px solid rgba(227,185,90,.45);
+  padding-bottom: 2px;
+}
+
+.events-col > .schedule-label {
+  margin-bottom: 6px;
+}
+
+/* V2 — carte réseau des six caves */
+.network-map {
+  background: #d9ded6;
+  overflow: hidden;
+}
+
+.leaflet-map {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.network-map .leaflet-control-attribution {
+  font-size: 9px;
+}
+
+.network-map .leaflet-control-zoom a {
+  color: var(--wine-dark);
+}
+
+.map-badge {
+  position: absolute;
+  z-index: 500;
+  top: 18px;
+  left: 18px;
+  background: rgba(243, 237, 225, .94);
+  color: var(--wine-dark);
+  border: 1px solid rgba(20, 82, 97, .14);
+  border-radius: 999px;
+  padding: 9px 13px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .4px;
+  box-shadow: 0 8px 24px rgba(12, 53, 63, .14);
+  pointer-events: none;
+}
+
+.map-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 30px;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(20,82,97,.13), rgba(184,144,47,.1));
+  color: var(--wine-dark);
+}
+
+.map-fallback span {
+  color: var(--ink-soft);
+  font-size: 12px;
+}
+
+.map-popup {
+  min-width: 185px;
+  font-family: 'Inter', sans-serif;
+}
+
+.map-popup strong,
+.map-popup span,
+.map-popup a {
+  display: block;
+}
+
+.map-popup strong {
+  color: var(--wine-dark);
+  margin-bottom: 4px;
+}
+
+.map-popup span {
+  color: #5a4d43;
+  font-size: 11px;
+  line-height: 1.45;
+  margin-bottom: 8px;
+}
+
+.map-popup a {
+  color: #9a7425;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.locations-intro {
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  margin: -8px 0 14px;
+}
+
+.locations-list {
+  border-top: 1px solid var(--line);
+}
+
+.location-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  transition: color .2s ease, transform .2s ease;
+}
+
+.location-row:hover {
+  color: var(--wine);
+  transform: translateX(2px);
+}
+
+.location-row > span:first-child {
+  min-width: 0;
+}
+
+.location-row strong {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.location-row small {
+  display: block;
+  color: var(--ink-soft);
+  font-size: 10.5px;
+  line-height: 1.4;
+}
+
+.location-row > span:last-child {
+  color: var(--gold);
+  flex: 0 0 auto;
+}
+
+.contact-email {
+  margin-top: 8px;
+}
+
+@media(max-width:820px) {
+  .cave-tabs {
+    margin-right: -26px;
+    padding-right: 26px;
+  }
+
+  .schedule-heading h3 {
+    font-size: 22px;
+  }
+
+  .network-map {
+    min-height: 390px;
+  }
+}
+
+@media(max-width:480px) {
+  .cave-tabs {
+    margin-right: -16px;
+    padding-right: 16px;
+  }
+
+  .cave-tabs button {
+    padding: 9px 12px;
+    font-size: 11px;
+  }
+
+  .schedule-heading {
+    display: block;
+  }
+
+  .schedule-heading > a {
+    display: inline-block;
+    margin-top: 10px;
+  }
+
+  .schedule-table td.hours {
+    max-width: 190px;
+    line-height: 1.45;
+  }
+
+  .network-map {
+    min-height: 320px;
+  }
+
+  .map-badge {
+    top: 12px;
+    left: 12px;
+  }
+}
+
+/* SEO / local landing links */
+.cave-links {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cave-page-link {
+  color: var(--wine);
+  font-weight: 700;
+}
+
+.cave-page-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 520px) {
+  .cave-links {
+    align-items: flex-start;
+  }
+}

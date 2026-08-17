@@ -1,0 +1,13 @@
+{
+  "name": "Le Cellier",
+  "short_name": "Le Cellier",
+  "description": "Réseau de caves à vins, champagnes, bières et spiritueux.",
+  "lang": "fr-FR",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3ede1",
+  "theme_color": "#145261",
+  "icons": [
+    {"src":"/logo-le-cellier-bleu.png","sizes":"484x516","type":"image/png","purpose":"any"}
+  ]
+}

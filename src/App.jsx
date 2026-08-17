@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState, useMemo, useRef } from 'react'
 import { Menu } from 'lucide-react'
 
 const WINES = [
@@ -31,7 +31,8 @@ const SPIRITS = [
 
 const CAVES = [
   {
-    name: 'Le Cellier Le Mans',
+    name: 'Le Cellier du Mans',
+    slug: 'le-mans',
     city: 'Le Mans',
     address: '44 Av. François Mitterrand, 72000 Le Mans',
     phone: '09 88 52 80 34',
@@ -39,9 +40,12 @@ const CAVES = [
     rating: '4,9',
     reviewCount: '39 avis',
     maps: 'https://www.google.com/maps/search/?api=1&query=Le+Cellier+Le+Mans+44+Avenue+Francois+Mitterrand+72000+Le+Mans',
+    lat: 48.0062,
+    lng: 0.1992,
   },
   {
     name: 'Le Cellier de Connerré',
+    slug: 'connerre',
     city: 'Connerré',
     address: '11 Rue de Paris, 72160 Connerré',
     phone: '09 88 09 31 47',
@@ -49,19 +53,25 @@ const CAVES = [
     rating: '4,9',
     reviewCount: '53 avis',
     maps: 'https://www.google.com/maps/search/?api=1&query=Le+Cellier+de+Connerre+11+Rue+de+Paris+72160+Connerre',
+    lat: 48.0610,
+    lng: 0.4970,
   },
   {
-    name: 'Le Cellier La Ferté-Bernard',
+    name: 'Le Cellier de La Ferté-Bernard',
+    slug: 'la-ferte-bernard',
     city: 'La Ferté-Bernard',
     address: '17 Rue Carnot, 72400 La Ferté-Bernard',
     phone: '02 43 93 36 79',
     phoneHref: '+33243933679',
-    rating: '4,4',
-    reviewCount: '32 avis',
+    rating: '4,5',
+    reviewCount: '33 avis',
     maps: 'https://www.google.com/maps/search/?api=1&query=Le+Cellier+17+Rue+Carnot+72400+La+Ferte-Bernard',
+    lat: 48.1866,
+    lng: 0.6530,
   },
   {
-    name: 'Cave Le Cellier Mamers',
+    name: 'Le Cellier de Mamers',
+    slug: 'mamers',
     city: 'Mamers',
     address: '52 Place Carnot, 72600 Mamers',
     phone: '09 81 30 12 20',
@@ -69,9 +79,12 @@ const CAVES = [
     rating: null,
     reviewCount: null,
     maps: 'https://www.google.com/maps/search/?api=1&query=Cave+Le+Cellier+Mamers+52+Place+Carnot+72600+Mamers',
+    lat: 48.3490,
+    lng: 0.3690,
   },
   {
-    name: 'Le Cellier Bonnétable',
+    name: 'Le Cellier de Bonnétable',
+    slug: 'bonnetable',
     city: 'Bonnétable',
     address: '19 Rue du Maréchal Joffre, 72110 Bonnétable',
     phone: '09 84 03 87 24',
@@ -79,9 +92,12 @@ const CAVES = [
     rating: '5,0',
     reviewCount: '7 avis',
     maps: 'https://www.google.com/maps/search/?api=1&query=Le+Cellier+Bonnetable+19+Rue+du+Marechal+Joffre+72110+Bonnetable',
+    lat: 48.1817,
+    lng: 0.4319,
   },
   {
-    name: 'Le Cellier Nogent',
+    name: 'Le Cellier de Nogent-le-Rotrou',
+    slug: 'nogent-le-rotrou',
     city: 'Nogent-le-Rotrou',
     address: '5 Rue Villette Gâte, 28400 Nogent-le-Rotrou',
     phone: '09 82 25 24 99',
@@ -89,18 +105,67 @@ const CAVES = [
     rating: '5,0',
     reviewCount: '6 avis',
     maps: 'https://www.google.com/maps/search/?api=1&query=Le+Cellier+Nogent+5+Rue+Villette+Gate+28400+Nogent-le-Rotrou',
+    lat: 48.3214,
+    lng: 0.8217,
   },
 ]
 
-const SCHEDULE = [
-  { day: 'Lundi', hours: '14h00 – 19h00' },
-  { day: 'Mardi', hours: '10h00 – 19h00' },
-  { day: 'Mercredi', hours: '10h00 – 19h00' },
-  { day: 'Jeudi', hours: '10h00 – 19h00' },
-  { day: 'Vendredi', hours: '10h00 – 19h00' },
-  { day: 'Samedi', hours: '10h00 – 19h00' },
-  { day: 'Dimanche', hours: null },
-]
+const CAVE_SCHEDULES = {
+  'Le Mans': [
+    { day: 'Lundi', hours: '14h00 – 19h00' },
+    { day: 'Mardi', hours: '10h00 – 19h00' },
+    { day: 'Mercredi', hours: '10h00 – 19h00' },
+    { day: 'Jeudi', hours: '10h00 – 19h00' },
+    { day: 'Vendredi', hours: '10h00 – 19h00' },
+    { day: 'Samedi', hours: '10h00 – 19h00' },
+    { day: 'Dimanche', hours: null },
+  ],
+  'Connerré': [
+    { day: 'Lundi', hours: null },
+    { day: 'Mardi', hours: '09h30 – 12h00 / 14h30 – 19h00' },
+    { day: 'Mercredi', hours: '09h30 – 12h00 / 14h30 – 19h00' },
+    { day: 'Jeudi', hours: '09h30 – 12h00 / 14h30 – 19h00' },
+    { day: 'Vendredi', hours: '09h30 – 12h00 / 14h30 – 19h00' },
+    { day: 'Samedi', hours: '09h30 – 12h30 / 14h30 – 19h00' },
+    { day: 'Dimanche', hours: '09h30 – 12h30' },
+  ],
+  'La Ferté-Bernard': [
+    { day: 'Lundi', hours: '10h00 – 12h00 / 14h30 – 19h00' },
+    { day: 'Mardi', hours: '09h30 – 12h00 / 14h30 – 19h00' },
+    { day: 'Mercredi', hours: '09h30 – 12h00 / 14h30 – 19h00' },
+    { day: 'Jeudi', hours: '09h30 – 12h00 / 14h30 – 19h00' },
+    { day: 'Vendredi', hours: '09h30 – 12h30 / 14h30 – 19h00' },
+    { day: 'Samedi', hours: '09h30 – 13h00 / 14h00 – 19h00' },
+    { day: 'Dimanche', hours: null },
+  ],
+  'Mamers': [
+    { day: 'Lundi', hours: null },
+    { day: 'Mardi', hours: '09h30 – 12h30 / 14h00 – 19h00' },
+    { day: 'Mercredi', hours: '09h30 – 12h30 / 14h00 – 19h00' },
+    { day: 'Jeudi', hours: '09h30 – 12h30 / 14h00 – 19h00' },
+    { day: 'Vendredi', hours: '09h30 – 12h30 / 14h00 – 19h00' },
+    { day: 'Samedi', hours: '09h30 – 12h30 / 14h00 – 19h00' },
+    { day: 'Dimanche', hours: null },
+  ],
+  'Bonnétable': [
+    { day: 'Lundi', hours: null },
+    { day: 'Mardi', hours: '10h00 – 12h30 / 14h00 – 19h00' },
+    { day: 'Mercredi', hours: '10h00 – 12h30 / 14h00 – 19h00' },
+    { day: 'Jeudi', hours: '10h00 – 12h30 / 14h00 – 19h00' },
+    { day: 'Vendredi', hours: '10h00 – 12h30 / 14h00 – 19h00' },
+    { day: 'Samedi', hours: '10h00 – 13h00 / 14h00 – 19h00' },
+    { day: 'Dimanche', hours: '09h30 – 12h30' },
+  ],
+  'Nogent-le-Rotrou': [
+    { day: 'Lundi', hours: null },
+    { day: 'Mardi', hours: '09h30 – 12h00 / 14h30 – 19h00' },
+    { day: 'Mercredi', hours: '09h30 – 12h00 / 14h30 – 19h00' },
+    { day: 'Jeudi', hours: '09h30 – 12h00 / 14h30 – 19h00' },
+    { day: 'Vendredi', hours: '09h30 – 12h30 / 14h30 – 19h00' },
+    { day: 'Samedi', hours: '09h30 – 19h00' },
+    { day: 'Dimanche', hours: null },
+  ],
+}
 
 const EVENTS = [
   {
@@ -276,6 +341,7 @@ function ReviewCarousel() {
             className={`dot ${i === current ? 'active' : ''}`}
             onClick={() => setCurrent(i)}
             title={`Avis ${i + 1}`}
+            aria-label={`Afficher l’avis ${i + 1}`}
           />
         ))}
       </div>
@@ -408,10 +474,84 @@ function GdprBanner({ isOpen, onClose }) {
   )
 }
 
+function CavesMap() {
+  const mapNode = useRef(null)
+  const mapInstance = useRef(null)
+  const [mapReady, setMapReady] = useState(true)
+
+  useEffect(() => {
+    if (!mapNode.current) return
+
+    if (!window.L) {
+      setMapReady(false)
+      return
+    }
+
+    const L = window.L
+    const map = L.map(mapNode.current, {
+      scrollWheelZoom: false,
+      zoomControl: true,
+    })
+
+    mapInstance.current = map
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors',
+    }).addTo(map)
+
+    const markers = CAVES.map((cave) => {
+      const marker = L.circleMarker([cave.lat, cave.lng], {
+        radius: 8,
+        color: '#f3ede1',
+        weight: 3,
+        fillColor: '#145261',
+        fillOpacity: 1,
+      }).addTo(map)
+
+      marker.bindPopup(`
+        <div class="map-popup">
+          <strong>${cave.name}</strong>
+          <span>${cave.address}</span>
+          <a href="${cave.maps}" target="_blank" rel="noopener noreferrer">Itinéraire ↗</a>
+        </div>
+      `)
+      return marker
+    })
+
+    const group = L.featureGroup(markers)
+    map.fitBounds(group.getBounds().pad(0.16), { maxZoom: 11 })
+
+    setTimeout(() => map.invalidateSize(), 100)
+
+    return () => {
+      map.remove()
+      mapInstance.current = null
+    }
+  }, [])
+
+  return (
+    <div className="map-wrap network-map">
+      <div className="leaflet-map" ref={mapNode} aria-label="Carte des six caves Le Cellier" />
+      {!mapReady && (
+        <div className="map-fallback">
+          <strong>Carte temporairement indisponible</strong>
+          <span>Les six adresses restent accessibles dans la liste.</span>
+        </div>
+      )}
+      <div className="map-badge">6 caves · Sarthe & Perche</div>
+    </div>
+  )
+}
+
 export default function App() {
   const [geoText, setGeoText] = useState('')
   const [menuOpen, setMenuOpen] = useState(false)
   const [showGdpr, setShowGdpr] = useState(false)
+  const [selectedCave, setSelectedCave] = useState('Le Mans')
+
+  const selectedCaveInfo = CAVES.find((cave) => cave.city === selectedCave) || CAVES[0]
+  const selectedSchedule = CAVE_SCHEDULES[selectedCave] || CAVE_SCHEDULES['Le Mans']
 
   useEffect(() => {
     const consent = localStorage.getItem('lecellier-gdpr-consent')
@@ -462,12 +602,13 @@ export default function App() {
 
   return (
     <>
+      <main id="contenu-principal">
       {/* HERO */}
       <section className="hero" id="top">
-        <img className="hero-bg" src="/wine-cellar.png" alt="Cave Le Cellier" />
+        <img className="hero-bg" src="/wine-cellar.png" alt="Intérieur d’une cave Le Cellier avec sélection de vins et spiritueux" width="1024" height="1024" loading="eager" fetchPriority="high" />
         <nav className="nav">
           <button className="nav-logo" onClick={() => scrollToId('top')} aria-label="Retour en haut de la page">
-            <img src="/logo-le-cellier.png" alt="Le Cellier" />
+            <img src="/logo-le-cellier-bleu.png" alt="Le Cellier — réseau de cavistes" width="484" height="516" />
           </button>
           
           <div className="nav-links">
@@ -547,7 +688,7 @@ export default function App() {
             <h2 className="head">
               Nos <i>6 caves</i>
             </h2>
-            <p className="caves-intro">Retrouvez la cave la plus proche de chez vous et accédez directement à sa fiche Google.</p>
+            <p className="caves-intro">Retrouvez la cave la plus proche de chez vous, consultez ses horaires et préparez votre visite.</p>
           </div>
           <div className="caves-grid">
             {CAVES.map((cave) => (
@@ -568,9 +709,14 @@ export default function App() {
                 <p className="cave-address">{cave.address}</p>
                 <div className="cave-actions">
                   <a className="cave-phone" href={`tel:${cave.phoneHref}`}>{cave.phone}</a>
-                  <a className="google-link" href={cave.maps} target="_blank" rel="noopener noreferrer">
-                    Voir la fiche Google <span aria-hidden="true">↗</span>
-                  </a>
+                  <div className="cave-links">
+                    <a className="cave-page-link" href={`/caves/${cave.slug}/`}>
+                      Découvrir la cave
+                    </a>
+                    <a className="google-link" href={cave.maps} target="_blank" rel="noopener noreferrer">
+                      Fiche Google <span aria-hidden="true">↗</span>
+                    </a>
+                  </div>
                 </div>
               </article>
             ))}
@@ -586,7 +732,7 @@ export default function App() {
             Une <i>sélection</i> de toute la France
           </h2>
           <p className="selection-intro">
-            Douze emplacements pour mettre en avant un blanc et un rouge de six grandes régions viticoles françaises. Les visuels actuels servent de base et pourront être remplacés par les bouteilles définitives.
+            Un tour de France en douze bouteilles : un rouge et un blanc choisis dans six grandes régions viticoles, sélectionnés avec le même soin que nos références en cave.
           </p>
         </div>
 
@@ -596,7 +742,7 @@ export default function App() {
               {[...WINES, ...WINES].map((wine, index) => (
                 <article className="selection-card" key={`${wine.region}-${wine.type}-${index}`}>
                   <div className="selection-photo">
-                    <img src={`/${wine.file}`} alt={wine.name} loading="lazy" />
+                    <img src={`/${wine.file}`} alt={`${wine.name} — ${wine.region}`} width="1024" height="1024" loading="lazy" decoding="async" />
                     <span className={`wine-type ${wine.type === 'Rouge' ? 'red' : 'white'}`}>{wine.type}</span>
                   </div>
                   <div className="selection-meta">
@@ -612,7 +758,7 @@ export default function App() {
         <div className="wrap spirits-heading">
           <span className="eyebrow">Whiskys, rhums & autres découvertes</span>
           <h3 className="spirits-title">Notre sélection de <i>spiritueux</i></h3>
-          <p className="selection-intro">Dix emplacements dédiés aux spiritueux, avec un défilement en sens inverse.</p>
+          <p className="selection-intro">Whiskys, rhums, gins, cognacs et autres découvertes : dix sélections pour explorer les grandes familles de spiritueux.</p>
         </div>
 
         <div className="marquee-shell" aria-label="Sélection de spiritueux">
@@ -621,7 +767,7 @@ export default function App() {
               {[...SPIRITS, ...SPIRITS].map((spirit, index) => (
                 <article className="selection-card spirit-card" key={`${spirit.category}-${index}`}>
                   <div className="selection-photo">
-                    <img src={`/${spirit.file}`} alt={spirit.name} loading="lazy" />
+                    <img src={`/${spirit.file}`} alt={`${spirit.name} — spiritueux sélectionné par Le Cellier`} width="1024" height="1024" loading="lazy" decoding="async" />
                     <span className="spirit-type">{spirit.category}</span>
                   </div>
                   <div className="selection-meta">
@@ -693,11 +839,34 @@ export default function App() {
           <h2 className="head">
             Horaires & <i>ateliers dégustation</i>
           </h2>
+          <div className="cave-tabs" role="tablist" aria-label="Choisir une cave">
+            {CAVES.map((cave) => (
+              <button
+                key={cave.city}
+                type="button"
+                role="tab"
+                aria-selected={selectedCave === cave.city}
+                className={selectedCave === cave.city ? 'active' : ''}
+                onClick={() => setSelectedCave(cave.city)}
+              >
+                {cave.city}
+              </button>
+            ))}
+          </div>
+
           <div className="planning-grid">
-            <div>
+            <div className="schedule-panel">
+              <div className="schedule-heading">
+                <div>
+                  <span className="schedule-label">Horaires de la cave</span>
+                  <h3>{selectedCaveInfo.name}</h3>
+                  <p>{selectedCaveInfo.address}</p>
+                </div>
+                <a href={selectedCaveInfo.maps} target="_blank" rel="noopener noreferrer">Itinéraire ↗</a>
+              </div>
               <table className="schedule-table">
                 <tbody>
-                  {SCHEDULE.map((row) => (
+                  {selectedSchedule.map((row) => (
                     <tr key={row.day}>
                       <td className="day">{row.day}</td>
                       {row.hours ? (
@@ -711,6 +880,7 @@ export default function App() {
               </table>
             </div>
             <div className="events-col">
+              <span className="schedule-label">Ateliers & dégustations</span>
               {EVENTS.map((ev) => (
                 <div className="event-item" key={ev.date}>
                   <div className="event-title">
@@ -728,35 +898,29 @@ export default function App() {
       <section className="section" id="contact">
         <div className="wrap">
           <div className="contact-inner">
-            <div className="map-wrap">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2718.8941265812936!2d0.18847!3d48.00629!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e1c5c5c5c5c5c5%3A0x1c5c5c5c5c5c5c5c!2s44%20Avenue%20Fran%C3%A7ois%20Mitterrand%2C%2072000%20Le%20Mans!5e0!3m2!1sfr!2sfr!4v1640000000000"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Localisation Le Cellier Le Mans"
-                allowFullScreen=""
-                aria-hidden="false"
-              />
-            </div>
+            <CavesMap />
             <div className="contact-copy">
               <div className="brand">Le Cellier</div>
               <h2>
                 Où nous <span>trouver</span>
               </h2>
 
-              <div className="info-row">
-                <span className="label">Adresse</span>
-                <span className="val">44 Avenue François Mitterrand, 72000 Le Mans</span>
+              <p className="locations-intro">Retrouvez nos six caves sur la carte et ouvrez directement l’itinéraire vers celle qui vous convient.</p>
+              <div className="locations-list">
+                {CAVES.map((cave) => (
+                  <a className="location-row" href={cave.maps} target="_blank" rel="noopener noreferrer" key={cave.city}>
+                    <span>
+                      <strong>{cave.name}</strong>
+                      <small>{cave.address}</small>
+                    </span>
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                ))}
               </div>
-              <div className="info-row">
-                <span className="label">Téléphone</span>
-                <span className="val">+33 9 88 52 80 34</span>
-              </div>
-              <div className="info-row">
+              <div className="info-row contact-email">
                 <span className="label">Email</span>
-                <span className="val">contact@lecellier.fr</span>
+                <a className="val" href="mailto:contact@lecellier.fr">contact@lecellier.fr</a>
               </div>
-
 
               <form className="contact-form" onSubmit={handleContactSubmit}>
                 <input type="text" placeholder="Votre nom" required />
@@ -770,12 +934,13 @@ export default function App() {
           </div>
         </div>
       </section>
+      </main>
 
       {/* FOOTER */}
       <footer>
         <div className="wrap">
           <div className="footer-grid">
-            <button className="footer-logo" onClick={() => scrollToId('top')} aria-label="Retour en haut de la page"><img src="/logo-le-cellier.png" alt="Le Cellier" /></button>
+            <button className="footer-logo" onClick={() => scrollToId('top')} aria-label="Retour en haut de la page"><img src="/logo-le-cellier.png" alt="Le Cellier — caviste vins, bières et spiritueux" width="484" height="516" loading="lazy" /></button>
             <div className="footer-col">
               <a href="#top">Accueil</a>
               <a href="#about">À propos</a>
@@ -796,7 +961,7 @@ export default function App() {
               <a href="#" aria-label="Facebook">
                 <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
               </a>
-              <a href="https://www.instagram.com/lecellierdumans/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <a href="https://www.instagram.com/lecellierlemans/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
               </a>
             </div>
