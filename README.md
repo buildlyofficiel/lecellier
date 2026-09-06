@@ -1,34 +1,20 @@
-# Le Cellier — Projet React (Vite)
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
+</div>
 
-Conversion du site HTML statique en projet React.
+# Run and deploy your AI Studio app
 
-## Démarrage
+This contains everything you need to run your app locally.
 
-```bash
-npm install
-npm run dev
-```
+View your app in AI Studio: https://ai.studio/apps/55fdf199-8531-4bfd-82f0-ae66b79a6623
 
-Puis ouvre l'URL affichée (en général http://localhost:5173).
+## Run Locally
 
-## Build de production
+**Prerequisites:**  Node.js
 
-```bash
-npm run build
-npm run preview
-```
 
-## Structure
-
-- `index.html` — page racine, charge les polices Google Fonts (Playfair Display + Inter)
-- `src/main.jsx` — point d'entrée React
-- `src/App.jsx` — tout le contenu de la page (hero, à propos, sélection de vins, planning, contact, footer)
-- `src/App.css` — les styles, repris tels quels du site original
-
-## Ce qui a changé par rapport au HTML original
-
-- Les `onclick="..."` sont devenus des gestionnaires React (`onClick`, `onSubmit`)
-- Le script de géolocalisation (`geoText`) est maintenant un `useEffect` + `useState`
-- Le défilement du carrousel de vins utilise un `useRef` au lieu de `document.getElementById`
-- La liste des vins, les horaires et les événements sont extraits en tableaux de données en haut du fichier (`WINES`, `SCHEDULE`, `EVENTS`) — pratique si tu veux les brancher plus tard sur une API ou un CMS
-- Les images sont toujours des placeholders visuels (comme dans l'original) — remplace `<ImgPlaceholder .../>` par de vraies balises `<img src="..." />` quand tu auras les photos
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`

@@ -1,33 +1,6 @@
 import { useEffect, useState, useMemo, useRef } from 'react'
 import { Menu } from 'lucide-react'
-
-const WINES = [
-  { file: 'red-wine.png', region: 'Bordeaux', type: 'Rouge', name: 'Sélection Bordeaux rouge' },
-  { file: 'white-wine.png', region: 'Bordeaux', type: 'Blanc', name: 'Sélection Bordeaux blanc' },
-  { file: 'vin-bourgogne.png', region: 'Bourgogne', type: 'Rouge', name: 'Sélection Bourgogne rouge' },
-  { file: 'vin-chablis.png', region: 'Bourgogne', type: 'Blanc', name: 'Sélection Bourgogne blanc' },
-  { file: 'vin-cotes-du-rhone.png', region: 'Vallée du Rhône', type: 'Rouge', name: 'Sélection Rhône rouge' },
-  { file: 'white-wine.png', region: 'Vallée du Rhône', type: 'Blanc', name: 'Sélection Rhône blanc' },
-  { file: 'red-wine.png', region: 'Vallée de la Loire', type: 'Rouge', name: 'Sélection Loire rouge' },
-  { file: 'white-wine.png', region: 'Vallée de la Loire', type: 'Blanc', name: 'Sélection Loire blanc' },
-  { file: 'red-wine.png', region: 'Alsace', type: 'Rouge', name: 'Sélection Alsace rouge' },
-  { file: 'white-wine.png', region: 'Alsace', type: 'Blanc', name: 'Sélection Alsace blanc' },
-  { file: 'red-wine.png', region: 'Languedoc-Roussillon', type: 'Rouge', name: 'Sélection Languedoc rouge' },
-  { file: 'white-wine.png', region: 'Languedoc-Roussillon', type: 'Blanc', name: 'Sélection Languedoc blanc' },
-]
-
-const SPIRITS = [
-  { file: 'wine-tasting.png', category: 'Whisky', name: 'Sélection Whisky' },
-  { file: 'wine-display.png', category: 'Rhum', name: 'Sélection Rhum' },
-  { file: 'wine-glasses.png', category: 'Gin', name: 'Sélection Gin' },
-  { file: 'wine-tasting.png', category: 'Cognac', name: 'Sélection Cognac' },
-  { file: 'wine-display.png', category: 'Armagnac', name: 'Sélection Armagnac' },
-  { file: 'wine-glasses.png', category: 'Calvados', name: 'Sélection Calvados' },
-  { file: 'wine-tasting.png', category: 'Tequila', name: 'Sélection Tequila' },
-  { file: 'wine-display.png', category: 'Mezcal', name: 'Sélection Mezcal' },
-  { file: 'wine-glasses.png', category: 'Vodka', name: 'Sélection Vodka' },
-  { file: 'wine-tasting.png', category: 'Liqueurs', name: 'Sélection Liqueurs' },
-]
+import { WINES, SPIRITS } from './catalogue.js'
 
 const CAVES = [
   {
@@ -258,6 +231,21 @@ const REVIEWS = [
 
 function scrollToId(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+}
+
+function getBottleSrc(file = '') {
+  if (!file) return '/wine-display.png'
+  if (file.startsWith('http://') || file.startsWith('https://')) return file
+  if (file.startsWith('/')) return file
+  return `/${file}`
+}
+
+function getWineTypeClass(type = '') {
+  const t = (type || '').toLowerCase()
+  if (t.includes('rouge')) return 'red'
+  if (t.includes('effervescent') || t.includes('champagne') || t.includes('mousseux') || t.includes('bulle')) return 'champagne'
+  if (t.includes('ros')) return 'rose'
+  return 'white'
 }
 
 function ReviewCarousel() {
@@ -605,10 +593,10 @@ export default function App() {
       <main id="contenu-principal">
       {/* HERO */}
       <section className="hero" id="top">
-        <img className="hero-bg" src="/wine-cellar.png" alt="Intérieur d’une cave Le Cellier avec sélection de vins et spiritueux" width="1024" height="1024" loading="eager" fetchPriority="high" />
+        <img className="hero-bg" src="/wine-cellar.png" alt="Intérieur d’une cave Le Cellier avec sélection de vins et spiritueux" width="1024" height="1024" loading="eager" fetchPriority="high" referrerPolicy="no-referrer" />
         <nav className="nav">
           <button className="nav-logo" onClick={() => scrollToId('top')} aria-label="Retour en haut de la page">
-            <img src="/logo-le-cellier-bleu.png" alt="Le Cellier — réseau de cavistes" width="484" height="516" />
+            <img src="/logo-le-cellier.png" alt="Le Cellier — réseau de cavistes" width="484" height="516" referrerPolicy="no-referrer" />
           </button>
           
           <div className="nav-links">
@@ -742,8 +730,18 @@ export default function App() {
               {[...WINES, ...WINES].map((wine, index) => (
                 <article className="selection-card" key={`${wine.region}-${wine.type}-${index}`}>
                   <div className="selection-photo">
-                    <img src={`/${wine.file}`} alt={`${wine.name} — ${wine.region}`} width="1024" height="1024" loading="lazy" decoding="async" />
-                    <span className={`wine-type ${wine.type === 'Rouge' ? 'red' : 'white'}`}>{wine.type}</span>
+                    <img 
+                      src={getBottleSrc(wine.file)} 
+                      alt={`${wine.name} — ${wine.region}`} 
+                      width="1024" 
+                      height="1024" 
+                      loading="lazy" 
+                      decoding="async" 
+                      referrerPolicy="no-referrer"
+                    />
+                    <span className={`wine-type ${getWineTypeClass(wine.type)}`}>
+                      {wine.type}
+                    </span>
                   </div>
                   <div className="selection-meta">
                     <span>{wine.region}</span>
@@ -758,7 +756,7 @@ export default function App() {
         <div className="wrap spirits-heading">
           <span className="eyebrow">Whiskys, rhums & autres découvertes</span>
           <h3 className="spirits-title">Notre sélection de <i>spiritueux</i></h3>
-          <p className="selection-intro">Whiskys, rhums, gins, cognacs et autres découvertes : dix sélections pour explorer les grandes familles de spiritueux.</p>
+          <p className="selection-intro">Whiskys, rhums, gins, cognacs, calvados et liqueurs : une sélection variée pour explorer toutes les grandes familles de spiritueux.</p>
         </div>
 
         <div className="marquee-shell" aria-label="Sélection de spiritueux">
@@ -767,7 +765,15 @@ export default function App() {
               {[...SPIRITS, ...SPIRITS].map((spirit, index) => (
                 <article className="selection-card spirit-card" key={`${spirit.category}-${index}`}>
                   <div className="selection-photo">
-                    <img src={`/${spirit.file}`} alt={`${spirit.name} — spiritueux sélectionné par Le Cellier`} width="1024" height="1024" loading="lazy" decoding="async" />
+                    <img 
+                      src={getBottleSrc(spirit.file)} 
+                      alt={`${spirit.name} — spiritueux sélectionné par Le Cellier`} 
+                      width="1024" 
+                      height="1024" 
+                      loading="lazy" 
+                      decoding="async" 
+                      referrerPolicy="no-referrer"
+                    />
                     <span className="spirit-type">{spirit.category}</span>
                   </div>
                   <div className="selection-meta">
@@ -940,7 +946,7 @@ export default function App() {
       <footer>
         <div className="wrap">
           <div className="footer-grid">
-            <button className="footer-logo" onClick={() => scrollToId('top')} aria-label="Retour en haut de la page"><img src="/logo-le-cellier.png" alt="Le Cellier — caviste vins, bières et spiritueux" width="484" height="516" loading="lazy" /></button>
+            <button className="footer-logo" onClick={() => scrollToId('top')} aria-label="Retour en haut de la page"><img src="/logo-le-cellier.png" alt="Le Cellier — caviste vins, bières et spiritueux" width="484" height="516" loading="lazy" referrerPolicy="no-referrer" /></button>
             <div className="footer-col">
               <a href="#top">Accueil</a>
               <a href="#about">À propos</a>

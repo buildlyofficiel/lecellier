@@ -2,5 +2,5 @@
   "name": "Le Cellier — Caviste au Mans, Sarthe & Perche",
   "description": "Réseau de 6 caves au Mans, Connerré, La Ferté-Bernard, Mamers, Bonnétable et Nogent-le-Rotrou. Vins, champagnes, bières et spiritueux.",
   "requestFramePermissions": ["geolocation"],
-  "majorCapabilities": []
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
