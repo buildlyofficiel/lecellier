@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo, useRef } from 'react'
-import { Menu } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Menu } from 'lucide-react'
 import { WINES, SPIRITS } from './catalogue.js'
 
 const CAVES = [
@@ -537,6 +537,7 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [showGdpr, setShowGdpr] = useState(false)
   const [selectedCave, setSelectedCave] = useState('Le Mans')
+  const [selectionPage, setSelectionPage] = useState(0)
 
   const selectedCaveInfo = CAVES.find((cave) => cave.city === selectedCave) || CAVES[0]
   const selectedSchedule = CAVE_SCHEDULES[selectedCave] || CAVE_SCHEDULES['Le Mans']
@@ -716,41 +717,30 @@ export default function App() {
       <section className="section selection-section" id="selection">
         <div className="wrap">
           <span className="eyebrow">Notre cave</span>
-          <h2 className="head">
-            Une <i>sélection</i> de toute la France
-          </h2>
-          <p className="selection-intro">
-            Un tour de France en douze bouteilles : un rouge et un blanc choisis dans six grandes régions viticoles, sélectionnés avec le même soin que nos références en cave.
-          </p>
-        </div>
-
-        <div className="marquee-shell" aria-label="Sélection de vins">
-          <div className="selection-marquee wine-marquee">
-            <div className="selection-track">
-              {[...WINES, ...WINES].map((wine, index) => (
-                <article className="selection-card" key={`${wine.region}-${wine.type}-${index}`}>
-                  <div className="selection-photo">
-                    <img 
-                      src={getBottleSrc(wine.file)} 
-                      alt={`${wine.name} — ${wine.region}`} 
-                      width="1024" 
-                      height="1024" 
-                      loading="lazy" 
-                      decoding="async" 
-                      referrerPolicy="no-referrer"
-                    />
-                    <span className={`wine-type ${getWineTypeClass(wine.type)}`}>
-                      {wine.type}
-                    </span>
-                  </div>
-                  <div className="selection-meta">
-                    <span>{wine.region}</span>
-                    <strong>{wine.name}</strong>
-                  </div>
-                </article>
-              ))}
+          <div className="selection-heading-row">
+            <div>
+              <h2 className="head">
+                Une <i>sélection</i> de toute la France
+              </h2>
+              <p className="selection-intro">
+                Un tour de France en douze bouteilles : un rouge et un blanc choisis dans six grandes régions viticoles, sélectionnés avec le même soin que nos références en cave.
+              </p>
+            </div>
+            <div className="selection-controls" aria-label="Navigation de la sélection">
+              <button className="arrow-btn" type="button" aria-label="Sélection précédente" onClick={() => setSelectionPage((page) => Math.max(0, page - 1))} disabled={selectionPage === 0}><ArrowLeft /></button>
+              <button className="arrow-btn" type="button" aria-label="Sélection suivante" onClick={() => setSelectionPage((page) => Math.min(Math.ceil((WINES.length * 2) / 4) - 1, page + 1))} disabled={selectionPage >= Math.ceil((WINES.length * 2) / 4) - 1}><ArrowRight /></button>
             </div>
           </div>
+
+        <div className="selection-grid" aria-label="Sélection de vins">
+          {[...WINES, ...WINES].slice(selectionPage * 4, selectionPage * 4 + 4).map((wine) => (
+            <article className="selection-card" key={`${wine.region}-${wine.type}`}>
+              <div className="selection-photo">
+                <img src={getBottleSrc(wine.file)} alt={`${wine.name} — ${wine.region}`} width="1024" height="1024" loading="lazy" decoding="async" referrerPolicy="no-referrer" />
+              </div>
+              <div className="selection-meta"><span>{wine.region}</span><strong>{wine.name}</strong></div>
+            </article>
+          ))}
         </div>
 
         <div className="wrap spirits-heading">
@@ -784,6 +774,7 @@ export default function App() {
               ))}
             </div>
           </div>
+        </div>
         </div>
       </section>
 

@@ -117,34 +117,30 @@ a {
 }
 
 .nav-logo {
-  width: auto;
-  height: 64px;
-  padding: 0;
-  border: none;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
+  width: 86px;
+  height: 86px;
+  padding: 7px;
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 18px;
+  background: rgba(243, 237, 225, .94);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .16);
   cursor: pointer;
-  overflow: visible;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  transition: transform .2s ease, opacity .2s ease;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform .2s ease, box-shadow .2s ease;
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
 }
 
 .nav-logo:hover {
   transform: translateY(-2px);
-  opacity: .92;
-  box-shadow: none;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .2);
 }
 
 .nav-logo img {
   position: static;
-  width: auto;
-  height: 64px;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   filter: none;
 }
@@ -335,20 +331,19 @@ a {
 }
 
 .pill-btn.branded {
-  background: #ffffff;
-  color: var(--ink) !important;
-  border: 1.5px solid #ffffff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-  font-weight: 500;
+  background: rgba(20, 82, 97, 0.15);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: #fff !important;
+  border: 1.5px solid rgba(184, 144, 47, 0.35);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: all .2s;
 }
 
 .pill-btn.branded:hover {
-  background: #f6efe2;
+  background: #fff;
   color: var(--ink) !important;
-  border-color: #f6efe2;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
+  border-color: #fff;
 }
 
 .pill-btn.dark {
@@ -381,7 +376,7 @@ a {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(15, 12, 10, .42) 0%, rgba(15, 12, 10, .18) 40%, rgba(15, 12, 10, .58) 100%);
+  background: linear-gradient(180deg, rgba(20, 10, 10, .35) 0%, rgba(20, 10, 10, .15) 40%, rgba(20, 10, 10, .55) 100%);
 }
 
 .hero-content {
@@ -720,10 +715,6 @@ a {
 }
 
 .selection-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
   transition: transform .45s ease;
 }
 
@@ -754,17 +745,6 @@ a {
 .wine-type.white {
   background: rgba(243, 237, 225, .9);
   color: var(--ink);
-}
-
-.wine-type.champagne {
-  background: rgba(216, 170, 67, .92);
-  color: #0b343e;
-  font-weight: 700;
-}
-
-.wine-type.rose {
-  background: rgba(197, 85, 117, .9);
-  color: white;
 }
 
 .spirit-type {
@@ -1344,26 +1324,17 @@ footer {
   }
 
   .nav-logo {
-    width: auto;
-    height: 52px;
-  }
-  .nav-logo img {
-    height: 52px;
+    width: 74px;
+    height: 74px;
   }
 }
 
 @media(max-width:820px) {
   .nav-logo {
-    width: auto;
-    height: 48px;
-    padding: 0;
-    border: none;
-    border-radius: 0;
-    background: transparent;
-    box-shadow: none;
-  }
-  .nav-logo img {
-    height: 48px;
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    padding: 5px;
   }
 
   .caves-heading-row {
@@ -1472,16 +1443,9 @@ footer {
 
 @media(max-width:480px) {
   .nav-logo {
-    width: auto;
-    height: 42px;
-    padding: 0;
-    border: none;
-    border-radius: 0;
-    background: transparent;
-    box-shadow: none;
-  }
-  .nav-logo img {
-    height: 42px;
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
   }
 
   .hero-sub {
@@ -2335,13 +2299,14 @@ footer {
 }
 
 /* --------------------------------------------------------------------------
-   BRAND STYLES — palette Le Cellier
-   Refined slate-petrol blue + warm gold + ivory/beige.
+   BRAND REFRESH — palette inspired by the Le Cellier visual identity
+   Deep petrol blue + warm gold + ivory. Applied as an intentional rhythm
+   across the page so the brand is visible beyond the logo.
    -------------------------------------------------------------------------- */
 :root {
-  --brand-blue: #1d6e82; /* Bleu plus clair et lumineux */
-  --brand-blue-dark: #145565;
-  --brand-blue-deep: #0f4452;
+  --brand-blue: #145261;
+  --brand-blue-dark: #062f38;
+  --brand-blue-deep: #03272e;
   --brand-gold: #d8aa43;
   --brand-gold-light: #efd28a;
   --brand-ivory: #f7f0e3;
@@ -2351,9 +2316,22 @@ footer {
   --gold: var(--brand-gold);
 }
 
-/* Hero: photo naturelle sans dégradé bleu opaque */
+/* Hero: the brand blue now reads through the photography instead of a neutral
+   brown/black overlay. */
 .hero::after {
-  background: linear-gradient(180deg, rgba(15, 12, 10, .42) 0%, rgba(15, 12, 10, .18) 40%, rgba(15, 12, 10, .58) 100%);
+  background:
+    linear-gradient(180deg, rgba(3, 39, 46, .74) 0%, rgba(6, 47, 56, .28) 38%, rgba(3, 39, 46, .82) 100%),
+    linear-gradient(90deg, rgba(3, 39, 46, .32), transparent 58%);
+}
+
+.nav-logo {
+  background: rgba(6, 47, 56, .84);
+  border-color: rgba(216, 170, 67, .72);
+  box-shadow: 0 10px 30px rgba(3, 39, 46, .28), 0 0 0 1px rgba(239, 210, 138, .12);
+}
+
+.nav-logo:hover {
+  box-shadow: 0 14px 34px rgba(3, 39, 46, .38), 0 0 0 1px rgba(239, 210, 138, .2);
 }
 
 .nav-links button::after {
@@ -2361,65 +2339,92 @@ footer {
 }
 
 .hero-title {
-  color: #ffffff;
-  text-shadow: 0 4px 24px rgba(0, 0, 0, .45);
+  color: var(--brand-ivory);
+  text-shadow: 0 8px 30px rgba(3, 39, 46, .42);
+}
+
+.hero-title::first-letter {
+  color: var(--brand-gold-light);
 }
 
 .hero-sub {
   max-width: 850px;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, .45);
+  text-shadow: 0 2px 14px rgba(3, 39, 46, .42);
 }
 
-/* Bouton Nous contacter blanc */
 .pill-btn.branded {
-  background: #ffffff;
-  color: #1c1614 !important;
-  border: 1.5px solid #ffffff;
-  font-weight: 500;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+  background: rgba(20, 82, 97, .68);
+  border-color: rgba(216, 170, 67, .72);
 }
 
 .pill-btn.branded:hover {
-  background: #f7f1e6;
-  color: #1c1614 !important;
-  border-color: #f7f1e6;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  background: var(--brand-gold);
+  color: var(--brand-blue-deep) !important;
+  border-color: var(--brand-gold);
 }
 
-/* Section À propos : fond beige comme le reste du site */
+/* About: strong blue brand block, matching the identity shown in the
+   recruitment artwork. */
 #about {
-  background: var(--cream);
-  color: var(--ink);
+  background: var(--brand-blue);
+  color: var(--brand-ivory);
   position: relative;
+  overflow: hidden;
+}
+
+#about::before,
+#about::after {
+  content: '';
+  position: absolute;
+  border: 1px solid rgba(216, 170, 67, .18);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+#about::before {
+  width: 420px;
+  height: 420px;
+  right: -190px;
+  top: -170px;
+}
+
+#about::after {
+  width: 260px;
+  height: 260px;
+  left: -150px;
+  bottom: -150px;
+}
+
+#about .wrap {
+  position: relative;
+  z-index: 1;
 }
 
 #about .eyebrow {
-  color: var(--gold);
+  color: var(--brand-gold-light);
 }
 
 #about .head {
-  color: var(--ink);
+  color: #fff;
 }
 
 #about .head i {
-  color: var(--wine);
+  color: var(--brand-gold-light);
 }
 
 #about .about-grid p {
-  color: var(--ink-soft);
+  color: rgba(247, 240, 227, .84);
 }
 
-/* Six caves : fond beige / ivoire clair et lisible */
+/* Six caves: keep the ivory background for readability, but make every
+   interactive element clearly branded. */
 .caves-section {
-  background: var(--cream-2);
+  background: var(--brand-ivory);
 }
 
 .cave-card {
   background: rgba(255, 255, 255, .72);
-  border-color: rgba(29, 110, 130, .18);
+  border-color: rgba(20, 82, 97, .16);
   box-shadow: 0 8px 22px rgba(6, 47, 56, .035);
 }
 
@@ -2438,9 +2443,10 @@ footer {
   color: var(--brand-gold);
 }
 
-/* Sélection : bleu plus clair et lumineux */
+/* Selection: the product showcase becomes one of the main blue/gold brand
+   moments instead of another neutral cream block. */
 #selection {
-  background: linear-gradient(180deg, #175a6c 0%, #104351 100%);
+  background: var(--brand-blue-deep);
   color: var(--brand-ivory);
 }
 
@@ -2459,12 +2465,12 @@ footer {
 }
 
 #selection .selection-intro {
-  color: rgba(247, 240, 227, .82);
+  color: rgba(247, 240, 227, .72);
 }
 
 #selection .selection-photo {
   box-shadow: 0 16px 34px rgba(0, 0, 0, .22);
-  border: 1px solid rgba(216, 170, 67, .2);
+  border: 1px solid rgba(216, 170, 67, .16);
 }
 
 #selection .selection-meta strong {
@@ -2480,103 +2486,104 @@ footer {
   color: var(--brand-blue-deep);
 }
 
-/* Cadeaux */
+/* Gifts: second major branded panel. */
 #gifts {
-  background: var(--cream-2);
+  background: var(--brand-ivory-soft);
 }
 
 #gifts .gift-card {
-  background: #ffffff;
-  border-color: var(--line);
-  box-shadow: 0 8px 20px rgba(34, 26, 22, .04);
+  background: var(--brand-blue);
+  border-color: rgba(216, 170, 67, .22);
+  box-shadow: 0 10px 26px rgba(6, 47, 56, .08);
 }
 
 #gifts .gift-card:hover {
-  background: #ffffff;
-  transform: translateY(-4px);
-  box-shadow: 0 14px 30px rgba(29, 110, 130, .1);
+  background: var(--brand-blue-dark);
+  box-shadow: 0 16px 34px rgba(6, 47, 56, .18);
 }
 
 #gifts .gift-name {
-  color: var(--ink);
+  color: #fff;
 }
 
 #gifts .gift-number,
 #gifts .gift-price {
-  color: var(--gold);
+  color: var(--brand-gold-light);
 }
 
 #gifts .gift-desc {
-  color: var(--ink-soft);
+  color: rgba(247, 240, 227, .76);
 }
 
 #gifts .gift-btn {
-  border-color: var(--gold);
-  color: var(--gold);
+  border-color: var(--brand-gold);
+  color: var(--brand-gold-light);
 }
 
 #gifts .gift-btn:hover {
-  background: var(--gold);
-  color: #ffffff;
+  background: var(--brand-gold);
+  color: var(--brand-blue-deep);
 }
 
-/* Partenaires */
+/* Partners remain lighter so future partner logos can be dropped in without
+   fighting the brand background. */
 .partners-section {
-  background: var(--cream);
+  background: var(--brand-ivory);
 }
 
 .partner-logo {
   color: var(--brand-blue);
-  border-right-color: rgba(29, 110, 130, .15);
+  border-right-color: rgba(20, 82, 97, .14);
 }
 
-/* Avis clients : fond beige chaleureux */
+/* Reviews: deep blue stage with ivory typography and gold controls. */
 .reviews-section {
-  background: var(--cream);
-  color: var(--ink);
+  background: var(--brand-blue);
+  color: var(--brand-ivory);
 }
 
 .reviews-section .eyebrow {
-  color: var(--gold);
+  color: var(--brand-gold-light);
 }
 
 .reviews-section .head {
-  color: var(--ink);
+  color: #fff;
 }
 
 .reviews-section .head i {
-  color: var(--brand-blue);
+  color: var(--brand-gold-light);
 }
 
 .review-quote {
-  color: var(--brand-blue);
+  color: var(--brand-ivory);
 }
 
 .review-author {
-  color: var(--ink-soft);
+  color: rgba(247, 240, 227, .66);
 }
 
 .carousel-arrow {
-  background: var(--cream-2);
-  border-color: var(--line);
-  color: var(--brand-blue);
+  background: transparent;
+  border-color: rgba(216, 170, 67, .5);
+  color: var(--brand-gold-light);
 }
 
 .carousel-arrow:hover {
-  background: var(--brand-blue);
-  border-color: var(--brand-blue);
-  color: #ffffff;
+  background: var(--brand-gold);
+  border-color: var(--brand-gold);
+  color: var(--brand-blue-deep);
 }
 
 .dot {
-  background: var(--line);
+  background: rgba(247, 240, 227, .25);
 }
 
 .dot.active {
-  background: var(--brand-blue);
+  background: var(--brand-gold);
 }
 
-/* Planning */
+/* Planning: already blue, but deepen it and add a subtle gold frame so it
+   feels like a deliberate brand panel. */
 #planning {
   padding-top: 76px;
   padding-bottom: 76px;
@@ -2585,22 +2592,22 @@ footer {
 .planning-section {
   background:
     radial-gradient(circle at 100% 0%, rgba(216, 170, 67, .08), transparent 30%),
-    linear-gradient(180deg, #175a6c 0%, #114553 100%);
-  border: 1px solid rgba(216, 170, 67, .2);
+    var(--brand-blue-dark);
+  border: 1px solid rgba(216, 170, 67, .18);
   box-shadow: 0 20px 50px rgba(3, 39, 46, .12);
 }
 
 .cave-tabs button.active {
   background: var(--brand-gold);
   border-color: var(--brand-gold);
-  color: #0b343e;
+  color: var(--brand-blue-deep);
 }
 
-/* Contact */
+/* Contact: keep the map prominent, while the form carries the brand. */
 .contact-inner {
-  background: var(--cream-2);
-  border: 1px solid var(--line);
-  box-shadow: 0 16px 40px rgba(34, 26, 22, .06);
+  background: var(--brand-ivory-soft);
+  border: 1px solid rgba(20, 82, 97, .1);
+  box-shadow: 0 16px 40px rgba(6, 47, 56, .08);
 }
 
 .contact-copy .brand,
@@ -2620,9 +2627,9 @@ footer {
   border-color: var(--brand-blue-dark);
 }
 
-/* Footer */
+/* Footer: finish on the same deep blue as the recruitment artwork. */
 footer {
-  background: #0f3d48;
+  background: var(--brand-blue-deep);
   border-top-color: rgba(216, 170, 67, .22);
   color: var(--brand-ivory);
   margin-top: 0;
@@ -2630,7 +2637,7 @@ footer {
 
 .footer-col a,
 .footer-bottom {
-  color: rgba(247, 240, 227, .72);
+  color: rgba(247, 240, 227, .66);
 }
 
 .footer-col a:hover {
@@ -2639,11 +2646,70 @@ footer {
 
 .socials a {
   background: var(--brand-gold);
-  color: #0b343e;
+  color: var(--brand-blue-deep);
 }
 
+/* Mobile: preserve the same color rhythm without making the page visually
+   heavy. */
 @media (max-width: 820px) {
+  #about::before {
+    width: 280px;
+    height: 280px;
+    right: -170px;
+    top: -120px;
+  }
+
   .planning-section {
     border-radius: 16px;
   }
 }
+
+/* Editorial refresh */
+:root { --cream: #f7f6f2; --cream-2: #efeee9; --ink: #111; --ink-soft: #676762; --line: #d9d9d2; --wine: #111; --wine-dark: #111; --gold: #77776f; }
+body { background: #f7f6f2; }
+.hero { height: 100vh; min-height: 680px; margin: 0; border-radius: 0; }
+.hero-bg { filter: brightness(.56) saturate(.82); }
+.nav { top: 4px; left: 50%; right: auto; width: min(630px, calc(100% - 32px)); transform: translateX(-50%); padding: 0; height: 44px; justify-content: center; background: #090909; border-radius: 0 0 18px 18px; }
+.nav-logo { position: absolute; right: calc(100% + 28px); height: 44px; }
+.nav-logo img { height: 38px; width: 38px; object-fit: contain; filter: brightness(0) invert(1); }
+.nav-links { gap: 0; height: 100%; }
+.nav-links button { color: #b7b7b7; font-size: 11px; text-transform: none; letter-spacing: 0; padding: 0 17px; }
+.nav-links button:hover { color: #fff; }
+.nav-links button::after { display: none; }
+.nav-right { position: absolute; left: calc(100% + 18px); white-space: nowrap; }
+.geo-text { display: none; }
+.pill-btn.branded { background: #fff; color: #111 !important; border: 0; border-radius: 0; box-shadow: none; padding: 12px 18px; }
+.icon-btn { display: none !important; }
+.section, .reviews-section, .partners-section, .selection-section { background: #f7f6f2; color: #111; }
+.head i, .spirits-title i, .contact-copy h2 span { color: #111; }
+.eyebrow { color: #77776f; }
+.interior-photo, .selection-photo, .menu-card .photo, img { border-radius: 0; }
+.selection-section { padding-top: 110px; }
+.selection-heading-row { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 34px; }
+.selection-heading-row .selection-intro { margin-bottom: 0; }
+.selection-controls { display: flex; gap: 8px; flex-shrink: 0; }
+.arrow-btn { width: 42px; height: 42px; border-radius: 0; border-color: #c8c8c1; }
+.arrow-btn:disabled { opacity: .3; cursor: not-allowed; }
+.selection-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.selection-card { width: auto; flex: none; }
+.selection-photo { height: 350px; box-shadow: none; background: #e5e4de; }
+.wine-type, .spirit-type { display: none; }
+.selection-meta { padding: 13px 0 0; }
+.selection-meta span { color: #77776f; }
+.caves-section { background: #efeee9; }
+.caves-grid { gap: 0; border-top: 1px solid #cfcfc7; }
+.cave-card { background: transparent; border: 0; border-bottom: 1px solid #cfcfc7; border-radius: 0; padding: 26px 0; min-height: 190px; }
+.cave-card:hover { transform: none; background: transparent; box-shadow: none; }
+.cave-city { color: #77776f; }
+.cave-actions { border-top: 0; padding-top: 16px; }
+.cave-page-link, .google-link { color: #111; text-decoration: underline; text-underline-offset: 4px; }
+.gift-card, .contact-inner, .planning-section { border-radius: 0; }
+.gift-card { background: #efeee9; border: 0; }
+.contact-inner { background: #efeee9; }
+.gdpr-banner { right: 24px; bottom: 24px; max-width: 480px; background: #111; color: #fff; border: 0; border-radius: 0; box-shadow: 0 20px 60px rgba(0,0,0,.22); padding: 30px; }
+.gdpr-header { border-bottom-color: rgba(255,255,255,.2); }
+.gdpr-eyebrow, .gdpr-title, .gdpr-title i, .gdpr-text, .gdpr-option-title, .gdpr-option-desc { color: #fff; }
+.gdpr-custom-panel { background: #1d1d1d; border: 0; border-radius: 0; }
+.gdpr-actions button { border-radius: 0; }
+@media (max-width: 820px) { .nav { width: calc(100% - 28px); height: 48px; border-radius: 0 0 14px 14px; } .nav-logo { right: auto; left: 14px; position: absolute; } .nav-logo img { height: 32px; width: 32px; } .nav-right { left: auto; right: 10px; } .nav-links { display: none !important; } .icon-btn { display: flex !important; border: 0; border-radius: 0; background: transparent; } .selection-heading-row { align-items: start; flex-direction: column; } .selection-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .selection-photo { height: 280px; } }
+@media (max-width: 480px) { .hero { min-height: 620px; } .nav { top: 0; } .nav-right .pill-btn { display: none; } .selection-grid { gap: 22px 12px; } .selection-photo { height: 235px; } .gdpr-banner { right: 12px; left: 12px; bottom: 12px; padding: 22px; } }
