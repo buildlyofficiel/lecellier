@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 import { caves, getSiteUrl } from './seo.config.mjs'
 
 const siteUrl = getSiteUrl()
@@ -52,6 +53,7 @@ const rootJsonLd = JSON.stringify({
 export default defineConfig({
   plugins: [
     react(),
+    tailwindcss(),
     {
       name: 'le-cellier-seo',
       transformIndexHtml(html) {

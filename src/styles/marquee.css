@@ -1,0 +1,19 @@
+.mask-marquee {
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+@keyframes selection-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-50% - 10px)); }
+}
+
+@keyframes selection-scroll-reverse {
+  from { transform: translateX(calc(-50% - 10px)); }
+  to { transform: translateX(0); }
+}
+
+@keyframes scroll-infinite {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

@@ -84,8 +84,8 @@ for (const cave of caves) {
   <header class="wrap top"><a href="/" aria-label="Accueil Le Cellier"><img class="logo" src="/logo-le-cellier-bleu.png" alt="Logo Le Cellier" width="484" height="516"></a><a class="back" href="/#caves">← Voir les 6 caves</a></header>
   <main class="wrap">
     <section class="hero">
-      <div class="photo" role="img" aria-label="Intérieur d’une cave Le Cellier"></div>
-      <article class="card"><span class="eyebrow">Caviste ${esc(cave.seoLocation)}</span><h1>${esc(cave.name)}</h1><p class="lead">Retrouvez notre sélection de vins, champagnes, bières et spiritueux, accompagnée des conseils de l’équipe Le Cellier.</p><div class="details"><address>${esc(cave.address)}</address><a href="tel:${cave.phoneHref}">${esc(cave.phone)}</a></div><div class="buttons"><a class="btn primary" href="${cave.maps}" target="_blank" rel="noopener noreferrer">Itinéraire</a><a class="btn" href="/#contact">Nous contacter</a></div></article>
+      <div class="photo" style="background-image: url('${cave.image || '/wine-cellar.png'}');" role="img" aria-label="Intérieur de ${esc(cave.name)}"></div>
+      <article class="card"><span class="eyebrow">Caviste ${esc(cave.seoLocation)}</span><h1>${esc(cave.name)}</h1><p class="lead">Retrouvez notre sélection de vins, champagnes, bières et spiritueux, accompagnée des conseils de l’équipe Le Cellier.</p><div class="details"><address>${esc(cave.address)}</address><a href="tel:${cave.phoneHref}">${esc(cave.phone)}</a></div><div class="buttons"><a class="btn primary" href="${cave.maps}" target="_blank" rel="noopener noreferrer">Itinéraire</a><a class="btn" href="/#planning">Nous contacter</a></div></article>
     </section>
     <section class="hours"><span class="eyebrow">Informations pratiques</span><h2>Horaires de la cave</h2><table><tbody>${rows}</tbody></table></section>
   </main>
