@@ -62,6 +62,19 @@ export default defineConfig({
           .replace('__ROOT_JSON_LD__', rootJsonLd)
       },
     },
+    {
+      name: 'serve-cave-pages-in-dev',
+      configureServer(server) {
+        server.middlewares.use((req, _res, next) => {
+          const pathname = req.url?.split('?')[0]
+          const cave = caves.find(({ slug }) => pathname === `/caves/${slug}/`)
+          if (cave && req.url) {
+            req.url = `/caves/${cave.slug}/index.html${req.url.slice(pathname.length)}`
+          }
+          next()
+        })
+      },
+    },
   ],
   server: {
     port: 3000,

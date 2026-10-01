@@ -39,7 +39,7 @@ export default function Hero() {
             onClick={() => document.getElementById('planning')?.scrollIntoView({ behavior: 'smooth' })}
             className="px-6 py-3 rounded-full bg-white/15 hover:bg-white/25 text-white backdrop-blur-md border border-white/30 text-xs sm:text-sm font-semibold uppercase tracking-wider transition-all duration-200 shadow-md cursor-pointer active:scale-95"
           >
-            Horaires & Contact
+            Horaires & Ateliers
           </button>
         </div>
       </div>

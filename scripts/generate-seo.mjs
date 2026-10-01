@@ -9,20 +9,20 @@ const publicDir = path.join(root, 'public')
 const siteUrl = getSiteUrl()
 const today = new Date().toISOString().slice(0, 10)
 
-const dayFr = { Monday:'Lundi', Tuesday:'Mardi', Wednesday:'Mercredi', Thursday:'Jeudi', Friday:'Vendredi', Saturday:'Samedi', Sunday:'Dimanche' }
-const daySchema = { Monday:'https://schema.org/Monday', Tuesday:'https://schema.org/Tuesday', Wednesday:'https://schema.org/Wednesday', Thursday:'https://schema.org/Thursday', Friday:'https://schema.org/Friday', Saturday:'https://schema.org/Saturday', Sunday:'https://schema.org/Sunday' }
+const dayFr = { Monday: 'Lundi', Tuesday: 'Mardi', Wednesday: 'Mercredi', Thursday: 'Jeudi', Friday: 'Vendredi', Saturday: 'Samedi', Sunday: 'Dimanche' }
+const daySchema = { Monday: 'https://schema.org/Monday', Tuesday: 'https://schema.org/Tuesday', Wednesday: 'https://schema.org/Wednesday', Thursday: 'https://schema.org/Thursday', Friday: 'https://schema.org/Friday', Saturday: 'https://schema.org/Saturday', Sunday: 'https://schema.org/Sunday' }
 
-function esc(s='') { return s.replace(/[&<>\"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])) }
+function esc(s = '') { return s.replace(/[&<>\"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])) }
 function hoursText(value) {
   if (!value) return 'Fermé'
-  if (Array.isArray(value[0])) return value.map(([o,c]) => `${o.replace(':','h')} – ${c.replace(':','h')}`).join(' / ')
-  return `${value[0].replace(':','h')} – ${value[1].replace(':','h')}`
+  if (Array.isArray(value[0])) return value.map(([o, c]) => `${o.replace(':', 'h')} – ${c.replace(':', 'h')}`).join(' / ')
+  return `${value[0].replace(':', 'h')} – ${value[1].replace(':', 'h')}`
 }
 function openingSpecs(cave) {
-  const out=[]
-  for (const [day,value] of Object.entries(cave.hours)) {
+  const out = []
+  for (const [day, value] of Object.entries(cave.hours)) {
     const periods = Array.isArray(value[0]) ? value : [value]
-    for (const [opens, closes] of periods) out.push({ '@type':'OpeningHoursSpecification', dayOfWeek: daySchema[day], opens, closes })
+    for (const [opens, closes] of periods) out.push({ '@type': 'OpeningHoursSpecification', dayOfWeek: daySchema[day], opens, closes })
   }
   return out
 }
@@ -47,15 +47,16 @@ for (const cave of caves) {
   const pageUrl = siteUrl ? `${siteUrl}/caves/${cave.slug}/` : `/caves/${cave.slug}/`
   const desc = `${cave.name}, votre caviste ${cave.seoLocation}. Découvrez vins, champagnes, bières et spiritueux, nos horaires, l’adresse et l’itinéraire.`
   const schema = {
-    '@context':'https://schema.org', '@type':'LiquorStore', '@id':`${pageUrl}#business`,
-    name:cave.name, url:pageUrl, telephone:cave.phoneHref, image: siteUrl ? `${siteUrl}/wine-cellar.png` : '/wine-cellar.png',
-    description:desc,
-    address:{ '@type':'PostalAddress', streetAddress:cave.street, postalCode:cave.postalCode, addressLocality:cave.city, addressRegion:cave.region, addressCountry:'FR' },
-    geo:{ '@type':'GeoCoordinates', latitude:cave.lat, longitude:cave.lng },
-    openingHoursSpecification:openingSpecs(cave),
-    parentOrganization:{ '@type':'Organization', name:'Le Cellier', ...(siteUrl ? { url:`${siteUrl}/` } : {}) }
+    '@context': 'https://schema.org', '@type': 'LiquorStore', '@id': `${pageUrl}#business`,
+    name: cave.name, url: pageUrl, telephone: cave.phoneHref, image: siteUrl ? `${siteUrl}/wine-cellar.png` : '/wine-cellar.png',
+    description: desc,
+    address: { '@type': 'PostalAddress', streetAddress: cave.street, postalCode: cave.postalCode, addressLocality: cave.city, addressRegion: cave.region, addressCountry: 'FR' },
+    geo: { '@type': 'GeoCoordinates', latitude: cave.lat, longitude: cave.lng },
+    openingHoursSpecification: openingSpecs(cave),
+    parentOrganization: { '@type': 'Organization', name: 'Le Cellier', ...(siteUrl ? { url: `${siteUrl}/` } : {}) }
   }
-  const rows = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'].map(day => `<tr><th>${dayFr[day]}</th><td>${hoursText(cave.hours[day])}</td></tr>`).join('')
+  const rows = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(day => `<tr><th>${dayFr[day]}</th><td>${hoursText(cave.hours[day])}</td></tr>`).join('')
+  const galleryImages = [cave.image, '/images/story/cellier-ambiance.jpg', '/wmremove-transformed.jpeg']
   const html = `<!doctype html>
 <html lang="fr">
 <head>
@@ -81,15 +82,53 @@ for (const cave of caves) {
   </style>
 </head>
 <body>
-  <header class="wrap top"><a href="/" aria-label="Accueil Le Cellier"><img class="logo" src="/logo-le-cellier-bleu.png" alt="Logo Le Cellier" width="484" height="516"></a><a class="back" href="/#caves">← Voir les 6 caves</a></header>
+  <style>
+    html,body{overflow-x:hidden}
+    .top{position:fixed;top:16px;left:0;right:0;z-index:20;width:100%;max-width:none;height:60px;margin:0;padding:6px max(24px,calc((100vw - 1400px)/2));background:transparent}
+    .top .logo{width:74px;height:60px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.5))}
+    .top .back{color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.8);transition:color .2s,text-shadow .2s}
+    .top.scrolled .logo{filter:none}.top.scrolled .back{color:var(--blue);text-shadow:none}
+    .hero{position:relative;display:flex;align-items:center;justify-content:flex-start;width:100vw;min-height:100svh;margin-left:calc(50% - 50vw);padding:100px 0 60px;overflow:hidden}
+    .photo{position:absolute;inset:0;min-height:0;border-radius:0;background-position:center;background-size:cover}
+    .photo:after{background:linear-gradient(90deg,rgba(20,18,15,.76),rgba(20,18,15,.25)),linear-gradient(0deg,rgba(20,18,15,.5),transparent 65%)}
+    .card{position:relative;width:min(1080px,calc(100% - 40px));margin:auto;padding:32px 0;background:transparent;border:0;border-radius:0;color:white}
+    .card h1{max-width:760px;color:white;font-size:72px;line-height:1.04}
+    .card .eyebrow{color:#e4bd6b}.lead,.details,.details a{color:#fff}.details address{font-style:normal}
+    .btn{border-color:rgba(255,255,255,.75);color:white}.btn.primary{border-color:#f3ede1;background:#f3ede1;color:#104451}
+    .story,.hours,.gallery,.google-reviews{padding:74px 0;border-top:1px solid var(--line)}
+    .story h2,.hours h2,.gallery h2,.google-reviews h2{font:500 38px/1.15 'Playfair Display',serif;margin:8px 0 18px}
+    .story p{max-width:760px;color:var(--soft)}
+    .gallery-grid{display:grid;grid-template-columns:1.2fr .8fr;grid-template-rows:220px 220px;gap:14px;margin-top:28px}
+    .gallery-grid img{width:100%;height:100%;object-fit:cover;display:block}
+    .gallery-grid img:first-child{grid-row:span 2}
+    .rating{font:500 58px/1 'Playfair Display',serif;color:var(--blue)}.stars{color:#b8902f;letter-spacing:3px;font-size:20px}
+    .google-summary{display:flex;align-items:center;gap:18px;margin:22px 0}.google-summary p{margin:0;color:var(--soft)}
+    @media(max-width:640px){.hero{min-height:100svh;padding:100px 0 60px}.top{top:12px;height:52px;padding:4px 20px}.top .logo{width:64px;height:52px}.card h1{font-size:48px}.story,.hours,.gallery,.google-reviews{padding:54px 0}.story h2,.hours h2,.gallery h2,.google-reviews h2{font-size:32px}.gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:240px 150px}.gallery-grid img:first-child{grid-column:span 2;grid-row:auto}}
+  </style>
+  <header class="wrap top"><a href="/" aria-label="Accueil Le Cellier"><img class="logo" src="/logo-le-cellier.png" data-light-src="/logo-le-cellier.png" data-dark-src="/logo-le-cellier-bleu.png" alt="Logo Le Cellier" width="484" height="516"></a><a class="back" href="/#caves">← Voir les 6 caves</a></header>
   <main class="wrap">
     <section class="hero">
       <div class="photo" style="background-image: url('${cave.image || '/wine-cellar.png'}');" role="img" aria-label="Intérieur de ${esc(cave.name)}"></div>
-      <article class="card"><span class="eyebrow">Caviste ${esc(cave.seoLocation)}</span><h1>${esc(cave.name)}</h1><p class="lead">Retrouvez notre sélection de vins, champagnes, bières et spiritueux, accompagnée des conseils de l’équipe Le Cellier.</p><div class="details"><address>${esc(cave.address)}</address><a href="tel:${cave.phoneHref}">${esc(cave.phone)}</a></div><div class="buttons"><a class="btn primary" href="${cave.maps}" target="_blank" rel="noopener noreferrer">Itinéraire</a><a class="btn" href="/#planning">Nous contacter</a></div></article>
+      <article class="card"><span class="eyebrow">Caviste ${esc(cave.seoLocation)}</span><h1>${esc(cave.name)}</h1><p class="lead">${esc(cave.tagline)}. Vins, champagnes, bières et spiritueux sélectionnés avec soin et les conseils de notre équipe.</p><div class="details"><address>${esc(cave.address)}</address><a href="tel:${cave.phoneHref}">${esc(cave.phone)}</a></div><div class="buttons"><a class="btn primary" href="${cave.maps}" target="_blank" rel="noopener noreferrer">Itinéraire</a><a class="btn" href="#horaires">Voir les horaires</a></div></article>
     </section>
-    <section class="hours"><span class="eyebrow">Informations pratiques</span><h2>Horaires de la cave</h2><table><tbody>${rows}</tbody></table></section>
+    <section class="story"><span class="eyebrow">À propos</span><h2>Une cave de proximité à ${esc(cave.city)}</h2><p>Le Cellier de ${esc(cave.city)} vous accueille pour découvrir une sélection de vins, champagnes, bières et spiritueux. Notre équipe vous accompagne dans vos choix, que ce soit pour une découverte, un repas ou une occasion particulière.</p><p>${esc(cave.tagline)}.</p></section>
+    <section class="gallery"><span class="eyebrow">La cave en images</span><h2>Un aperçu de notre univers</h2><div class="gallery-grid">${galleryImages.map((image, index) => `<img src="${esc(image)}" alt="${index === 0 ? `Le Cellier à ${esc(cave.city)}` : 'L’univers des caves Le Cellier'}" ${index ? 'loading="lazy"' : 'fetchpriority="high"'}>`).join('')}</div></section>
+    <section class="hours" id="horaires"><span class="eyebrow">Informations pratiques</span><h2>Horaires de la cave</h2><table><tbody>${rows}</tbody></table><div class="buttons" style="margin-top:22px"><a class="btn primary" href="tel:${cave.phoneHref}">Appeler la cave</a><a class="btn" href="${cave.maps}" target="_blank" rel="noopener noreferrer">Itinéraire</a></div></section>
+    <section class="google-reviews"><span class="eyebrow">Avis Google</span><h2>Les avis de nos clients</h2><div class="google-summary"><strong class="rating">${esc(cave.rating)}</strong><div><div class="stars" aria-label="Note ${esc(cave.rating)} sur 5">★★★★★</div><p>${esc(cave.reviewCount)} sur Google</p></div></div><a class="btn primary" href="${cave.maps}" target="_blank" rel="noopener noreferrer">Consulter les avis Google ↗</a></section>
   </main>
   <footer><div class="wrap">© ${new Date().getFullYear()} Le Cellier · ${esc(cave.city)} · <a href="/">Site principal</a></div></footer>
+  <script>
+    const caveNav = document.querySelector('.top')
+    const caveHero = document.querySelector('.hero')
+    const caveLogo = caveNav.querySelector('.logo')
+    const updateCaveNav = () => {
+      const overLightSection = window.scrollY + 90 >= caveHero.offsetHeight
+      caveNav.classList.toggle('scrolled', overLightSection)
+      caveLogo.src = overLightSection ? caveLogo.dataset.darkSrc : caveLogo.dataset.lightSrc
+    }
+    window.addEventListener('scroll', updateCaveNav, { passive: true })
+    updateCaveNav()
+  </script>
 </body>
 </html>`
   fs.writeFileSync(path.join(dir, 'index.html'), html)

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function CavesGrid({ caves, onSelectCave, scrollToId }) {
+export default function CavesGrid({ caves }) {
   const [showAll, setShowAll] = useState(false)
 
   const displayedCaves = showAll ? caves : caves.slice(0, 3)
@@ -8,7 +8,7 @@ export default function CavesGrid({ caves, onSelectCave, scrollToId }) {
   return (
     <section className="py-24 bg-[#f3ede1]" id="caves">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <div className="text-center mb-16">
           <span className="text-xs font-bold uppercase tracking-[2.5px] text-[#b8902f] block mb-3">
@@ -25,13 +25,11 @@ export default function CavesGrid({ caves, onSelectCave, scrollToId }) {
         {/* 3 Caves (or 6 when expanded) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {displayedCaves.map((cave) => (
-            <article
+            <a
               key={cave.city}
-              className="group relative h-[380px] overflow-hidden shadow-md cursor-pointer transition-all duration-300 hover:shadow-xl bg-[#221a16]"
-              onClick={() => {
-                onSelectCave(cave.city)
-                scrollToId('planning')
-              }}
+              href={`/caves/${cave.slug}/`}
+              className="group relative block h-[380px] overflow-hidden shadow-md cursor-pointer transition-all duration-300 hover:shadow-xl bg-[#221a16]"
+              aria-label={`Découvrir ${cave.name}`}
             >
               {/* Pure image without any text initially */}
               <img
@@ -56,7 +54,7 @@ export default function CavesGrid({ caves, onSelectCave, scrollToId }) {
                 </p>
               </div>
 
-            </article>
+            </a>
           ))}
         </div>
 

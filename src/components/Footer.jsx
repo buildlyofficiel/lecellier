@@ -1,4 +1,4 @@
-export default function Footer({ scrollToId, setShowGdpr, setSelectedCave, caves }) {
+export default function Footer({ scrollToId, setShowGdpr, caves }) {
   return (
     <footer className="relative overflow-hidden rounded-t-[14px] bg-[#104451] text-[#f3ede1] py-16 border-t border-[#145261]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,12 +57,7 @@ export default function Footer({ scrollToId, setShowGdpr, setSelectedCave, caves
               </li>
               <li>
                 <button type="button" onClick={() => scrollToId('planning')} className="hover:text-white transition-colors cursor-pointer border-0 bg-transparent p-0">
-                  Horaires & Contact
-                </button>
-              </li>
-              <li>
-                <button type="button" onClick={() => scrollToId('gifts')} className="hover:text-white transition-colors cursor-pointer border-0 bg-transparent p-0">
-                  Idées cadeaux & coffrets
+                  Horaires & ateliers
                 </button>
               </li>
             </ul>
@@ -76,16 +71,12 @@ export default function Footer({ scrollToId, setShowGdpr, setSelectedCave, caves
             <ul className="space-y-2.5 text-xs text-slate-300">
               {caves.map((c) => (
                 <li key={c.city}>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setSelectedCave(c.city)
-                      scrollToId('planning')
-                    }}
-                    className="hover:text-white hover:underline text-left cursor-pointer border-0 bg-transparent p-0 transition-colors"
+                  <a
+                    href={`/caves/${c.slug}/`}
+                    className="hover:text-white hover:underline text-left transition-colors"
                   >
                     <strong className="text-[#f3ede1] font-semibold">{c.city}</strong> — {c.address.split(',')[0]}
-                  </button>
+                  </a>
                 </li>
               ))}
             </ul>

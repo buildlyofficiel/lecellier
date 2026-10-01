@@ -27,7 +27,7 @@ export default function Navbar({ onSelectCave }) {
         pointerEvents: 'none'
       }}
     >
-      <div 
+      <div
         style={{
           pointerEvents: 'auto',
           display: 'flex',
@@ -167,31 +167,7 @@ export default function Navbar({ onSelectCave }) {
               onMouseEnter={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.18)'}
               onMouseLeave={(e) => e.target.style.background = 'transparent'}
             >
-              Horaires & Contact
-            </button>
-
-            <button
-              type="button"
-              onClick={() => scrollTo('gifts')}
-              style={{
-                background: 'transparent',
-                border: 'none',
-                color: '#ffffff',
-                fontSize: '12.5px',
-                fontWeight: '600',
-                textTransform: 'uppercase',
-                letterSpacing: '1px',
-                cursor: 'pointer',
-                padding: '6px 14px',
-                borderRadius: '9999px',
-                whiteSpace: 'nowrap',
-                textShadow: '0 2px 8px rgba(0,0,0,0.8)',
-                transition: 'all 0.2s ease'
-              }}
-              onMouseEnter={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.18)'}
-              onMouseLeave={(e) => e.target.style.background = 'transparent'}
-            >
-              Cadeaux
+              Horaires & Ateliers
             </button>
           </nav>
         </div>
@@ -268,8 +244,7 @@ export default function Navbar({ onSelectCave }) {
                 { label: 'Histoire', id: 'histoire' },
                 { label: 'Nos 6 caves', id: 'caves' },
                 { label: 'Sélection', id: 'selection' },
-                { label: 'Horaires & Contact', id: 'planning' },
-                { label: 'Cadeaux', id: 'gifts' },
+                { label: 'Horaires & Ateliers', id: 'planning' },
               ].map((item) => (
                 <button
                   key={item.id}

@@ -4,7 +4,6 @@ import Hero from './components/Hero.jsx'
 import NotreHistoireSection from './components/NotreHistoireSection.jsx'
 import CavesGrid from './components/CavesGrid.jsx'
 import SelectionSection from './components/SelectionSection.jsx'
-import GiftsSection from './components/GiftsSection.jsx'
 import PartnersSection from './components/PartnersSection.jsx'
 import ReviewsSection from './components/ReviewsSection.jsx'
 import PlanningContactSection from './components/PlanningContactSection.jsx'
@@ -186,24 +185,6 @@ export const EVENTS = [
   },
 ]
 
-export const GIFT_IDEAS = [
-  {
-    num: '01',
-    name: 'Coffrets Sur-Mesure',
-    desc: 'Composez votre coffret en bois (1, 2 ou 3 bouteilles) avec verres de dégustation et douceurs.',
-  },
-  {
-    num: '02',
-    name: 'Chèques Cadeaux Libres',
-    desc: 'Offrez un montant au choix valable dans l’ensemble de nos 6 caves de la Sarthe et du Perche.',
-  },
-  {
-    num: '03',
-    name: 'Ateliers & Masterclasses',
-    desc: 'Offrez une place pour nos soirées dégustation animées par nos cavistes passionnés.',
-  },
-]
-
 export const PARTNERS = [
   'Domaine de la Guilloterie',
   'Champagne Paul Le Brun',
@@ -261,15 +242,6 @@ export default function App() {
   const [geoText, setGeoText] = useState('')
   const [showGdpr, setShowGdpr] = useState(false)
   const [selectedCave, setSelectedCave] = useState('Le Mans')
-  const [contactSubmitted, setContactSubmitted] = useState(false)
-  const [contactForm, setContactForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    cave: 'Le Mans',
-    subject: 'Renseignement vin & conseils',
-    message: '',
-  })
 
   const selectedCaveInfo = CAVES.find((c) => c.city === selectedCave) || CAVES[0]
   const selectedSchedule = CAVE_SCHEDULES[selectedCave] || CAVE_SCHEDULES['Le Mans']
@@ -301,20 +273,6 @@ export default function App() {
     )
   }, [])
 
-  const handleContactSubmit = (e) => {
-    e.preventDefault()
-    setContactSubmitted(true)
-  }
-
-  const handleBookEvent = (eventTitle) => {
-    setContactForm((prev) => ({
-      ...prev,
-      subject: `Réservation atelier : ${eventTitle}`,
-      message: `Bonjour, je souhaite réserver une place pour l'atelier "${eventTitle}". Pouvez-vous me confirmer les disponibilités ? Merci.`,
-    }))
-    scrollToId('planning')
-  }
-
   return (
     <>
       <Navbar onSelectCave={(city) => setSelectedCave(city)} geoText={geoText} />
@@ -322,9 +280,8 @@ export default function App() {
       <main id="contenu-principal">
         <Hero />
         <NotreHistoireSection />
-        <CavesGrid caves={CAVES} onSelectCave={setSelectedCave} scrollToId={scrollToId} />
+        <CavesGrid caves={CAVES} />
         <SelectionSection wines={WINES} spirits={SPIRITS} getBottleSrc={getBottleSrc} />
-        <GiftsSection giftIdeas={GIFT_IDEAS} />
         <PartnersSection partners={PARTNERS} />
         <ReviewsSection reviews={REVIEWS} />
         <PlanningContactSection
@@ -335,19 +292,12 @@ export default function App() {
           selectedSchedule={selectedSchedule}
           events={EVENTS}
           todayName={TODAY_NAME}
-          handleBookEvent={handleBookEvent}
-          contactSubmitted={contactSubmitted}
-          setContactSubmitted={setContactSubmitted}
-          contactForm={contactForm}
-          setContactForm={setContactForm}
-          handleContactSubmit={handleContactSubmit}
         />
       </main>
 
       <Footer
         scrollToId={scrollToId}
         setShowGdpr={setShowGdpr}
-        setSelectedCave={setSelectedCave}
         caves={CAVES}
       />
 

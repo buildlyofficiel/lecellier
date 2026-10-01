@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Clock, Phone, MapPin, CheckCircle2, ArrowRight, Calendar, Users, MessageSquare } from 'lucide-react'
+import { Phone, MapPin } from 'lucide-react'
 import CavesMap from './CavesMap.jsx'
 
 export default function PlanningContactSection({
@@ -10,16 +10,8 @@ export default function PlanningContactSection({
   selectedSchedule,
   events,
   todayName,
-  handleBookEvent,
-  contactSubmitted,
-  setContactSubmitted,
-  contactForm,
-  setContactForm,
-  handleContactSubmit
 }) {
-  // Mode on desktop/mobile for the right-hand panel (events or contact)
-  const [rightPanelMode, setRightPanelMode] = useState('events') // 'events' | 'contact'
-  // Mobile active tab: 'schedule' | 'map' | 'events' | 'contact'
+  // Mobile active tab: 'schedule' | 'map' | 'events'
   const [mobileTab, setMobileTab] = useState('schedule')
 
   const daysOrder = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
@@ -63,8 +55,8 @@ export default function PlanningContactSection({
                 role="tab"
                 aria-selected={isActive}
                 className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer border ${isActive
-                    ? 'bg-[#104451] text-white border-[#104451] shadow-md scale-105'
-                    : 'bg-[#f3ede1] text-[#5a4d43] border-[#ddd0ba] hover:bg-white hover:text-[#104451]'
+                  ? 'bg-[#104451] text-white border-[#104451] shadow-md scale-105'
+                  : 'bg-[#f3ede1] text-[#5a4d43] border-[#ddd0ba] hover:bg-white hover:text-[#104451]'
                   }`}
                 onClick={() => onSelectCave(cave.city)}
               >
@@ -99,14 +91,6 @@ export default function PlanningContactSection({
               }`}
           >
             Ateliers
-          </button>
-          <button
-            type="button"
-            onClick={() => setMobileTab('contact')}
-            className={`flex-1 py-2 text-xs font-bold rounded-lg transition-colors cursor-pointer border-0 ${mobileTab === 'contact' ? 'bg-[#104451] text-white shadow-xs' : 'text-[#5a4d43]'
-              }`}
-          >
-            Contact
           </button>
         </div>
 
@@ -200,141 +184,60 @@ export default function PlanningContactSection({
             {/* ------------------------------------------------------------ */}
             {/* COLUMN 3: PLANNING ATELIERS OU CONTACT */}
             {/* ------------------------------------------------------------ */}
-            <div className={`flex flex-col justify-between rounded-2xl bg-[#fcf9f2] border border-[#ddd0ba] p-5 sm:p-6 ${mobileTab !== 'events' && mobileTab !== 'contact' ? 'hidden lg:flex' : 'flex'
+            <div className={`flex flex-col justify-between rounded-2xl bg-[#fcf9f2] border border-[#ddd0ba] p-5 sm:p-6 ${mobileTab !== 'events' ? 'hidden lg:flex' : 'flex'
               }`}>
 
               {/* Header with toggle tab */}
               <div>
-                <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#f0e9db]">
+                <div className="pb-3 mb-3 border-b border-[#f0e9db]">
                   <span className="text-[10.5px] font-bold uppercase tracking-wider text-[#b8902f]">
-                    {rightPanelMode === 'events' ? 'Prochains ateliers' : 'Formulaire de contact'}
+                    Prochains ateliers
                   </span>
-                  <div className="flex gap-1 bg-[#f3ede1] p-0.5 rounded-lg">
-                    <button
-                      type="button"
-                      onClick={() => { setRightPanelMode('events'); setMobileTab('events') }}
-                      className={`px-2.5 py-1 text-[11px] font-bold rounded-md transition-colors cursor-pointer border-0 ${rightPanelMode === 'events' ? 'bg-[#104451] text-white' : 'text-[#5a4d43]'
-                        }`}
-                    >
-                      Ateliers
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => { setRightPanelMode('contact'); setMobileTab('contact') }}
-                      className={`px-2.5 py-1 text-[11px] font-bold rounded-md transition-colors cursor-pointer border-0 ${rightPanelMode === 'contact' ? 'bg-[#104451] text-white' : 'text-[#5a4d43]'
-                        }`}
-                    >
-                      Écrire
-                    </button>
-                  </div>
                 </div>
 
-                {/* Sub-view: Workshops / Events */}
-                {rightPanelMode === 'events' ? (
-                  <div className="space-y-3">
-                    {events.map((ev) => {
-                      const parts = ev.date.split(' ')
-                      const dayNum = parts[1] || ''
-                      const monthName = (parts[2] || '').slice(0, 4)
+                <div className="space-y-3">
+                  {events.map((ev) => {
+                    const parts = ev.date.split(' ')
+                    const dayNum = parts[1] || ''
+                    const monthName = (parts[2] || '').slice(0, 4)
 
-                      return (
-                        <div
-                          key={ev.title}
-                          className="p-3 rounded-xl bg-[#fcf9f2] border border-[#e7ded0] hover:border-[#b8902f] transition-all flex gap-3 items-center"
-                        >
-                          <div className="w-11 h-11 rounded-lg bg-[#104451] text-[#f3ede1] flex flex-col items-center justify-center shrink-0 shadow-xs">
-                            <span className="font-serif text-sm font-bold leading-none">{dayNum}</span>
-                            <span className="text-[9px] font-bold uppercase text-amber-300 mt-0.5">{monthName}</span>
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <h4 className="font-serif text-xs font-semibold text-[#221a16] truncate">
-                              {ev.title}
-                            </h4>
-                            <p className="text-[11px] text-[#5a4d43] line-clamp-1">
-                              {ev.cave}
-                            </p>
-                            <div className="flex items-center justify-between mt-1">
-                              <span className="text-[10px] text-[#104451] font-semibold">
-                                {ev.places}
-                              </span>
-                              <button
-                                type="button"
-                                onClick={() => handleBookEvent(ev.title)}
-                                className="text-[11px] font-bold text-[#104451] hover:underline cursor-pointer border-0 bg-transparent p-0"
-                              >
-                                Réserver →
-                              </button>
-                            </div>
+                    return (
+                      <div
+                        key={ev.title}
+                        className="p-3 rounded-xl bg-[#fcf9f2] border border-[#e7ded0] hover:border-[#b8902f] transition-all flex gap-3 items-center"
+                      >
+                        <div className="w-11 h-11 rounded-lg bg-[#104451] text-[#f3ede1] flex flex-col items-center justify-center shrink-0 shadow-xs">
+                          <span className="font-serif text-sm font-bold leading-none">{dayNum}</span>
+                          <span className="text-[9px] font-bold uppercase text-amber-300 mt-0.5">{monthName}</span>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-serif text-xs font-semibold text-[#221a16] truncate">
+                            {ev.title}
+                          </h4>
+                          <p className="text-[11px] text-[#5a4d43] line-clamp-1">
+                            {ev.cave}
+                          </p>
+                          <div className="flex items-center justify-between mt-1">
+                            <span className="text-[10px] text-[#104451] font-semibold">
+                              {ev.places}
+                            </span>
+                            <a
+                              href={`tel:${caves.find((cave) => cave.name === ev.cave)?.phoneHref || selectedCaveInfo.phoneHref}`}
+                              className="text-[11px] font-bold text-[#104451] hover:underline cursor-pointer border-0 bg-transparent p-0"
+                            >
+                              Appeler ↗
+                            </a>
                           </div>
                         </div>
-                      )
-                    })}
-                  </div>
-                ) : (
-                  /* Sub-view: Contact form */
-                  <div>
-                    {contactSubmitted ? (
-                      <div className="py-6 text-center">
-                        <CheckCircle2 size={36} className="text-[#104451] mx-auto mb-2" />
-                        <h4 className="font-serif text-sm font-medium text-[#221a16] mb-1">
-                          Message envoyé !
-                        </h4>
-                        <p className="text-[11px] text-[#5a4d43] mb-4">
-                          L'équipe de <strong>{selectedCave}</strong> vous recontactera sous 24h.
-                        </p>
-                        <button
-                          type="button"
-                          onClick={() => setContactSubmitted(false)}
-                          className="px-4 py-1.5 rounded-full bg-[#104451] text-white text-[11px] font-bold"
-                        >
-                          Nouveau message
-                        </button>
                       </div>
-                    ) : (
-                      <form className="space-y-2.5" onSubmit={handleContactSubmit}>
-                        <input
-                          type="text"
-                          required
-                          placeholder="Votre nom"
-                          value={contactForm.name}
-                          onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
-                          className="w-full rounded-lg border border-[#ddd0ba] bg-[#fdfbf7] px-3 py-1.5 text-xs text-[#221a16] focus:outline-none focus:border-[#104451]"
-                        />
-                        <input
-                          type="email"
-                          required
-                          placeholder="Votre email"
-                          value={contactForm.email}
-                          onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
-                          className="w-full rounded-lg border border-[#ddd0ba] bg-[#fdfbf7] px-3 py-1.5 text-xs text-[#221a16] focus:outline-none focus:border-[#104451]"
-                        />
-                        <textarea
-                          rows={3}
-                          required
-                          placeholder="Votre message..."
-                          value={contactForm.message}
-                          onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
-                          className="w-full rounded-lg border border-[#ddd0ba] bg-[#fdfbf7] px-3 py-1.5 text-xs text-[#221a16] focus:outline-none focus:border-[#104451]"
-                        />
-                        <button
-                          type="submit"
-                          className="w-full py-2 rounded-xl bg-[#104451] hover:bg-[#0c333e] text-white text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer border-0 shadow-xs"
-                        >
-                          Envoyer ma demande
-                        </button>
-                      </form>
-                    )}
-                  </div>
-                )}
+                    )
+                  })}
+                </div>
               </div>
 
               {/* Bottom footer text */}
               <div className="pt-3 mt-3 border-t border-[#f0e9db] text-center text-[11px] text-[#8a7e72]">
-                {rightPanelMode === 'events' ? (
-                  <span>Dégustations animées par nos cavistes passionnés.</span>
-                ) : (
-                  <span>Réponse sous 24h ouvrées.</span>
-                )}
+                <span>Dégustations animées par nos cavistes passionnés.</span>
               </div>
 
             </div>
