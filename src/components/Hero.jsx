@@ -23,7 +23,7 @@ export default function Hero() {
         </h1>
 
         <p className="mt-6 text-base sm:text-lg lg:text-xl text-slate-100 max-w-2xl leading-relaxed drop-shadow-md font-light">
-          Six caves de caractère, plus de 1 500 références choisies auprès de vignerons passionnés et de distillateurs d'exception. Venez pousser la porte de votre caviste pour un conseil sin[...]
+          Six caves de caractère, plus de 1 500 références choisies auprès de vignerons passionnés et de distillateurs d'exception. Venez pousser la porte de votre caviste pour un conseil sincère et un accueil de proximité.
         </p>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
@@ -44,7 +44,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Subtle rounded bottom corners for a cleaner transition into the next section */}
       <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none z-10 pointer-events-none">
         <svg
           viewBox="0 0 1440 90"
