@@ -11,7 +11,6 @@ export default function PlanningContactSection({
   events,
   todayName,
 }) {
-  // Mobile active tab: 'schedule' | 'map' | 'events'
   const [mobileTab, setMobileTab] = useState('schedule')
 
   const daysOrder = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
@@ -28,8 +27,6 @@ export default function PlanningContactSection({
   return (
     <section className="py-20 sm:py-28 bg-[#f3ede1]" id="planning">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* SECTION HEADER */}
         <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <span className="text-xs font-bold uppercase tracking-[2.5px] text-[#b8902f] block mb-2">
@@ -44,7 +41,6 @@ export default function PlanningContactSection({
           </p>
         </div>
 
-        {/* CAVE SELECTOR PILLS */}
         <div className="flex justify-start gap-2 flex-wrap mb-6" role="tablist">
           {caves.map((cave) => {
             const isActive = selectedCave === cave.city
@@ -66,43 +62,32 @@ export default function PlanningContactSection({
           })}
         </div>
 
-        {/* MOBILE VIEW SELECTOR TABS (Visible only on < lg) */}
         <div className="flex lg:hidden justify-center gap-1.5 mb-6 p-1 bg-[#ede4d4] rounded-xl">
           <button
             type="button"
             onClick={() => setMobileTab('schedule')}
-            className={`flex-1 py-2 text-xs font-bold rounded-lg transition-colors cursor-pointer border-0 ${mobileTab === 'schedule' ? 'bg-[#104451] text-white shadow-xs' : 'text-[#5a4d43]'
-              }`}
+            className={`flex-1 py-2 text-xs font-bold rounded-lg transition-colors cursor-pointer border-0 ${mobileTab === 'schedule' ? 'bg-[#104451] text-white shadow-xs' : 'text-[#5a4d43]'}`}
           >
             Horaires
           </button>
           <button
             type="button"
             onClick={() => setMobileTab('map')}
-            className={`flex-1 py-2 text-xs font-bold rounded-lg transition-colors cursor-pointer border-0 ${mobileTab === 'map' ? 'bg-[#104451] text-white shadow-xs' : 'text-[#5a4d43]'
-              }`}
+            className={`flex-1 py-2 text-xs font-bold rounded-lg transition-colors cursor-pointer border-0 ${mobileTab === 'map' ? 'bg-[#104451] text-white shadow-xs' : 'text-[#5a4d43]'}`}
           >
             Carte
           </button>
           <button
             type="button"
             onClick={() => setMobileTab('events')}
-            className={`flex-1 py-2 text-xs font-bold rounded-lg transition-colors cursor-pointer border-0 ${mobileTab === 'events' ? 'bg-[#104451] text-white shadow-xs' : 'text-[#5a4d43]'
-              }`}
+            className={`flex-1 py-2 text-xs font-bold rounded-lg transition-colors cursor-pointer border-0 ${mobileTab === 'events' ? 'bg-[#104451] text-white shadow-xs' : 'text-[#5a4d43]'}`}
           >
             Ateliers
           </button>
         </div>
 
-        {/* ============================================================== */}
-        {/* UNIFIED 1-ROW COMPACT BLOCK (Horaires + Carte + Planning) */}
-        {/* ============================================================== */}
         <div>
           <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.1fr_0.95fr] gap-4 sm:gap-5 items-stretch">
-
-            {/* ------------------------------------------------------------ */}
-            {/* COLUMN 1: HORAIRES & INFOS PRATIQUES */}
-            {/* ------------------------------------------------------------ */}
             <div className={`flex flex-col justify-between rounded-2xl bg-[#fcf9f2] border border-[#ddd0ba] p-5 sm:p-6 ${mobileTab !== 'schedule' ? 'hidden lg:flex' : 'flex'}`}>
               <div>
                 <div className="pb-4 mb-4 border-b border-[#f0e9db]">
@@ -117,7 +102,6 @@ export default function PlanningContactSection({
                   </p>
                 </div>
 
-                {/* Compact Schedule Table */}
                 <table className="w-full text-xs border-collapse">
                   <tbody>
                     {scheduleRows.map((row) => {
@@ -125,8 +109,7 @@ export default function PlanningContactSection({
                       return (
                         <tr
                           key={row.day}
-                          className={`border-b border-[#f5efe4] last:border-none ${isToday ? 'bg-amber-500/15 font-semibold rounded' : ''
-                            }`}
+                          className={`border-b border-[#f5efe4] last:border-none ${isToday ? 'bg-amber-500/15 font-semibold rounded' : ''}`}
                         >
                           <td className="py-2 px-1.5 text-[#221a16]">
                             <div className="flex items-center gap-1.5">
@@ -148,7 +131,6 @@ export default function PlanningContactSection({
                 </table>
               </div>
 
-              {/* Action buttons at bottom of col 1 */}
               <div className="flex items-center gap-2 pt-4 mt-3 border-t border-[#f0e9db]">
                 <a
                   href={`tel:${selectedCaveInfo.phoneHref}`}
@@ -169,9 +151,6 @@ export default function PlanningContactSection({
               </div>
             </div>
 
-            {/* ------------------------------------------------------------ */}
-            {/* COLUMN 2: CARTE INTERACTIVE LEAFLET */}
-            {/* ------------------------------------------------------------ */}
             <div className={`relative min-h-[380px] lg:min-h-[460px] h-full ${mobileTab !== 'map' ? 'hidden lg:block' : 'block'}`}>
               <CavesMap
                 caves={caves}
@@ -181,13 +160,7 @@ export default function PlanningContactSection({
               />
             </div>
 
-            {/* ------------------------------------------------------------ */}
-            {/* COLUMN 3: PLANNING ATELIERS OU CONTACT */}
-            {/* ------------------------------------------------------------ */}
-            <div className={`flex flex-col justify-between rounded-2xl bg-[#fcf9f2] border border-[#ddd0ba] p-5 sm:p-6 ${mobileTab !== 'events' ? 'hidden lg:flex' : 'flex'
-              }`}>
-
-              {/* Header with toggle tab */}
+            <div className={`flex flex-col justify-between rounded-2xl bg-[#fcf9f2] border border-[#ddd0ba] p-5 sm:p-6 ${mobileTab !== 'events' ? 'hidden lg:flex' : 'flex'}`}>
               <div>
                 <div className="pb-3 mb-3 border-b border-[#f0e9db]">
                   <span className="text-[10.5px] font-bold uppercase tracking-wider text-[#b8902f]">
@@ -235,16 +208,12 @@ export default function PlanningContactSection({
                 </div>
               </div>
 
-              {/* Bottom footer text */}
               <div className="pt-3 mt-3 border-t border-[#f0e9db] text-center text-[11px] text-[#8a7e72]">
                 <span>Dégustations animées par nos cavistes passionnés.</span>
               </div>
-
             </div>
-
           </div>
         </div>
-
       </div>
     </section>
   )
