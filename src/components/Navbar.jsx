@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { Menu, X, Compass, ChevronRight } from 'lucide-react'
+import { Menu, X, ChevronRight } from 'lucide-react'
 
 export default function Navbar({ onSelectCave }) {
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -24,7 +24,10 @@ export default function Navbar({ onSelectCave }) {
         zIndex: 50,
         margin: 0,
         padding: '16px 0 0 0',
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        backdropFilter: 'blur(14px)',
+        background: 'rgba(12, 51, 62, 0.28)',
+        borderBottom: '1px solid rgba(255,255,255,0.08)'
       }}
     >
       <div
@@ -41,7 +44,6 @@ export default function Navbar({ onSelectCave }) {
           position: 'relative'
         }}
       >
-        {/* LOGO ONLY - LEFT */}
         <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0, background: 'transparent', zIndex: 2 }}>
           <button
             type="button"
@@ -60,7 +62,6 @@ export default function Navbar({ onSelectCave }) {
           </button>
         </div>
 
-        {/* CENTER NAVBAR BAR - ABSOLUTELY CENTERED */}
         <div className="hidden lg:flex" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', alignItems: 'center', justifyContent: 'center', zIndex: 1 }}>
           <nav
             style={{
@@ -172,7 +173,6 @@ export default function Navbar({ onSelectCave }) {
           </nav>
         </div>
 
-        {/* RIGHT ACTION - WHERE TO FIND US */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0, background: 'transparent', zIndex: 2 }}>
           <button
             type="button"
@@ -180,7 +180,7 @@ export default function Navbar({ onSelectCave }) {
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '8px',
+              justifyContent: 'center',
               padding: '8px 18px',
               borderRadius: '9999px',
               background: '#f3ede1',
@@ -197,7 +197,6 @@ export default function Navbar({ onSelectCave }) {
             onMouseEnter={(e) => e.target.style.background = '#ffffff'}
             onMouseLeave={(e) => e.target.style.background = '#f3ede1'}
           >
-            <Compass size={14} />
             <span className="hidden sm:inline">Où nous trouver</span>
           </button>
 
@@ -212,7 +211,6 @@ export default function Navbar({ onSelectCave }) {
         </div>
       </div>
 
-      {/* MOBILE DRAWER */}
       {mobileOpen && (
         <div className="lg:hidden pointer-events-auto">
           <div
@@ -250,7 +248,7 @@ export default function Navbar({ onSelectCave }) {
                   key={item.id}
                   type="button"
                   onClick={() => scrollTo(item.id)}
-                  className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-left text-sm font-semibold uppercase tracking-wider text-slate-100 hover:text-white hover:bg-white/10 transition-colors border-0 bg-transparent cursor-pointer whitespace-nowrap"
+                  className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-left text-sm font-semibold uppercase tracking-wider text-slate-100 hover:text-white hover:bg-white/[0.1] transition-colors border-0 bg-transparent"
                 >
                   <span>{item.label}</span>
                   <ChevronRight size={16} className="text-[#d8a84e]" />
@@ -262,9 +260,8 @@ export default function Navbar({ onSelectCave }) {
               <button
                 type="button"
                 onClick={() => scrollTo('planning')}
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#f3ede1] text-[#104451] hover:bg-white text-xs font-bold uppercase tracking-wider transition-all shadow-md cursor-pointer border-0"
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#f3ede1] text-[#104451] hover:bg-white text-xs font-bold uppercase tracking-wider transition-all shadow-md"
               >
-                <Compass size={15} />
                 <span>Trouver ma cave</span>
               </button>
             </div>
