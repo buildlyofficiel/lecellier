@@ -161,7 +161,7 @@ export default function PlanningContactSection({
                   href={selectedCaveInfo.maps}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-[#104451] hover:bg-[#0c333e] text-white text-xs font-bold transition-colors shadow-xs"
+                  className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-[#f3ede1] hover:bg-white text-[#104451] text-xs font-bold transition-colors shadow-xs"
                 >
                   <MapPin size={12} />
                   <span>Itinéraire ↗</span>
