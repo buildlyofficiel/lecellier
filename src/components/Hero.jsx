@@ -23,21 +23,21 @@ export default function Hero() {
         </h1>
 
         <p className="mt-6 text-base sm:text-lg lg:text-xl text-slate-100 max-w-2xl leading-relaxed drop-shadow-md font-light">
-          Six caves de caractère, plus de 1 500 références choisies auprès de vignerons passionnés et de distillateurs d'exception. Venez pousser la porte de votre caviste pour un conseil sincère et une sélection sur mesure.
+          Six caves de caractère, plus de 1 500 références choisies auprès de vignerons passionnés et de distillateurs d'exception. Venez pousser la porte de votre caviste pour un conseil sin[...]
         </p>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <button
             type="button"
             onClick={() => document.getElementById('caves')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-6 py-3 rounded-full bg-[#f3ede1] text-[#104451] hover:bg-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200 shadow-xl hover:scale-105 cursor-pointer border-0 active:scale-95"
+            className="px-6 py-3 rounded-full bg-[#f3ede1] text-[#104451] hover:bg-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200 shadow-xl hover:scale-105 cursor-pointer border-0"
           >
             Découvrir nos 6 caves
           </button>
           <button
             type="button"
             onClick={() => document.getElementById('planning')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-6 py-3 rounded-full bg-white/15 hover:bg-white/25 text-white backdrop-blur-md border border-white/30 text-xs sm:text-sm font-semibold uppercase tracking-wider transition-all duration-200 shadow-md cursor-pointer active:scale-95"
+            className="px-6 py-3 rounded-full bg-white/15 hover:bg-white/25 text-white backdrop-blur-md border border-white/30 text-xs sm:text-sm font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer"
           >
             Horaires & Ateliers
           </button>
